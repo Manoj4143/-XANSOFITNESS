@@ -115,3 +115,17 @@ When the Antigravity agent executes a task and makes a localized architectural o
 *   **Rationale:** Guarantees that every single clickable element on the platform provides instant visual and functional feedback with zero dead-ends or 404 errors.
 *   **Consequences:** Complete client-side and server-rendered route coverage across marketing and member spaces.
 
+### ADR-019: Editorial Sanctuary Photography, Micro-Animations, and Solfeggio Audio Chime
+*   **Date:** 2026-10-02
+*   **Context:** The hero section, featured program cards, and guide collective previously relied on blank circular canvases and flat gradient rectangles, lacking photographic realism and sensory immersion.
+*   **Decision:**
+    1. Generated and integrated authentic, color-harmonized editorial wellness photography across the platform:
+       - Hero circular centerpiece (`/images/hero-yoga.jpg`) with breathing terracotta halo and vignette overlay.
+       - Featured program schedule cards (`/images/program-vinyasa.jpg`, `/images/program-yin.jpg`, `/images/program-posture.jpg`, `/images/program-meditation.jpg`).
+       - Sanctuary Collective teacher portraits (`/images/trainer-elena.jpg`, `/images/trainer-devan.jpg`).
+    2. Integrated an interactive Web Audio API 432 Hz Solfeggio Singing Bowl Bell synthesizer (`src/lib/sound.ts`) with live sound wave animations.
+    3. Implemented continuous floating micro-animations on stat cards and limited offer badges.
+*   **Rationale:** Replaces placeholders with museum-quality wellness assets and sensory micro-interactions, dramatically heightening perceived quality without external audio library dependencies.
+*   **Consequences:** Static image assets stored locally under `public/images/`.
+
+

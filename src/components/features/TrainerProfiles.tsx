@@ -17,6 +17,7 @@ export interface Trainer {
   initials: string;
   accentBg: string;
   bio: string;
+  image?: string;
 }
 
 const DEFAULT_TRAINERS: Trainer[] = [
@@ -31,6 +32,7 @@ const DEFAULT_TRAINERS: Trainer[] = [
     initials: "ER",
     accentBg: "bg-[#F3E2DA] text-primary",
     bio: "14 years teaching intentional movement in Mysore and Zurich. Focused on anatomical precision.",
+    image: "/images/trainer-elena.jpg",
   },
   {
     id: "trainer-2",
@@ -43,6 +45,7 @@ const DEFAULT_TRAINERS: Trainer[] = [
     initials: "DN",
     accentBg: "bg-[#EAE4DC] text-[#605B54]",
     bio: "Trained in Rishikesh. Weaves Tibetan singing bowls with slow fascial decompression.",
+    image: "/images/trainer-devan.jpg",
   },
   {
     id: "trainer-3",
@@ -55,6 +58,7 @@ const DEFAULT_TRAINERS: Trainer[] = [
     initials: "ML",
     accentBg: "bg-[#F6EDE8] text-primary",
     bio: "Bridging physical therapy with classical hatha sequences for modern sedentary lifestyles.",
+    image: "/images/program-posture.jpg",
   },
   {
     id: "trainer-4",
@@ -67,11 +71,12 @@ const DEFAULT_TRAINERS: Trainer[] = [
     initials: "JV",
     accentBg: "bg-[#EFECE8] text-[#842503]",
     bio: "Over two decades studying contemplative traditions across Kyoto and the Himalayas.",
+    image: "/images/hero-yoga.jpg",
   },
 ];
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -121,15 +126,24 @@ export function TrainerProfiles({
           <motion.div key={trainer.id} variants={fadeInUp} className="relative pt-12">
             <SurfaceCard
               hoverEffect
-              className="relative p-6 pt-14 text-center flex flex-col justify-between h-full border border-border/80"
+              className="relative p-6 pt-14 text-center flex flex-col justify-between h-full border border-border/80 shadow-soft hover:shadow-card transition-all"
             >
               {/* Overlapping Circular Avatar */}
               <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-                <div className="relative">
+                <div className="relative group">
                   <div
-                    className={`w-24 h-24 rounded-full border-4 border-surface shadow-card flex items-center justify-center font-display text-2xl font-semibold ${trainer.accentBg}`}
+                    className={`w-24 h-24 rounded-full border-4 border-surface shadow-card flex items-center justify-center font-display text-2xl font-semibold overflow-hidden transition-transform duration-300 group-hover:scale-105 ${trainer.accentBg}`}
                   >
-                    {trainer.initials}
+                    {trainer.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={trainer.image}
+                        alt={trainer.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      trainer.initials
+                    )}
                   </div>
                   {/* Small verified qualification badge */}
                   <div className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center shadow-xs">
@@ -138,45 +152,47 @@ export function TrainerProfiles({
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="space-y-3">
-                {/* Rating */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surfaceVariant text-xs font-sans text-text-main">
-                  <Star className="w-3.5 h-3.5 text-[#C97B1A] fill-[#C97B1A]" />
-                  <span className="font-semibold">{trainer.rating}</span>
-                  <span className="text-text-muted">({trainer.reviewsCount})</span>
-                </div>
-
+              {/* Bio & Details */}
+              <div className="space-y-4">
                 <div>
-                  <h3 className="font-display text-xl font-semibold text-text-main">
+                  <h3 className="font-display text-xl font-medium text-text-main">
                     {trainer.name}
                   </h3>
-                  <p className="font-sans text-xs font-medium text-primary mt-0.5">
-                    {trainer.qualifications}
+                  <p className="font-sans text-xs text-primary font-medium mt-0.5">
+                    {trainer.role}
                   </p>
                 </div>
 
-                <div className="pt-2 text-xs font-sans text-text-muted">
-                  <span className="font-semibold text-text-main block mb-0.5">
-                    Specialties:
+                {/* Rating & Qualification Pills */}
+                <div className="flex items-center justify-center gap-2">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surfaceVariant text-xs font-sans text-text-main">
+                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                    <span>{trainer.rating}</span>
+                    <span className="text-text-muted">({trainer.reviewsCount})</span>
+                  </div>
+
+                  <span className="px-2.5 py-0.5 rounded-full bg-surfaceVariant text-xs font-sans text-text-muted">
+                    {trainer.qualifications}
                   </span>
-                  {trainer.specialties}
                 </div>
 
-                <p className="font-sans text-xs text-text-muted leading-relaxed line-clamp-3 pt-1">
+                <p className="font-sans text-xs text-text-muted leading-relaxed">
                   {trainer.bio}
                 </p>
               </div>
 
-              {/* Action Button */}
-              <div className="pt-6 mt-6 border-t border-border/60">
+              {/* Bottom Specialty & CTA */}
+              <div className="pt-4 mt-4 border-t border-border/60 space-y-3">
+                <div className="text-[11px] font-sans text-text-muted uppercase tracking-wider">
+                  Specialty: <span className="text-text-main font-medium">{trainer.specialties}</span>
+                </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   href="/dashboard"
-                  className="w-full justify-center"
+                  className="w-full text-xs text-primary hover:text-primary-hover hover:bg-primary/5"
                 >
-                  View Profile &rarr;
+                  Book 1:1 Guided Session &rarr;
                 </Button>
               </div>
             </SurfaceCard>

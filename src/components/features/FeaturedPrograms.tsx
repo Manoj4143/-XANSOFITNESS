@@ -15,6 +15,7 @@ export interface ProgramItem {
   focus: "Mobility" | "Breath" | "Alignment" | "Stillness";
   gradient: string;
   level: string;
+  image?: string;
 }
 
 const DEFAULT_PROGRAMS: ProgramItem[] = [
@@ -27,6 +28,7 @@ const DEFAULT_PROGRAMS: ProgramItem[] = [
     focus: "Mobility",
     gradient: "from-[#F6EDE8] to-[#ECD8CF]",
     level: "All Levels",
+    image: "/images/program-vinyasa.jpg",
   },
   {
     id: "prog-2",
@@ -37,6 +39,7 @@ const DEFAULT_PROGRAMS: ProgramItem[] = [
     focus: "Stillness",
     gradient: "from-[#EFECE8] to-[#E3DCD3]",
     level: "Restorative",
+    image: "/images/program-yin.jpg",
   },
   {
     id: "prog-3",
@@ -47,6 +50,7 @@ const DEFAULT_PROGRAMS: ProgramItem[] = [
     focus: "Alignment",
     gradient: "from-[#F3ECE4] to-[#E7DDD0]",
     level: "Quick Practice",
+    image: "/images/program-posture.jpg",
   },
   {
     id: "prog-4",
@@ -57,6 +61,7 @@ const DEFAULT_PROGRAMS: ProgramItem[] = [
     focus: "Breath",
     gradient: "from-[#F8EDE6] to-[#EAD5C8]",
     level: "Mindfulness",
+    image: "/images/program-meditation.jpg",
   },
 ];
 
@@ -136,31 +141,43 @@ export function FeaturedPrograms({
           >
             <SurfaceCard
               hoverEffect
-              className="p-0 overflow-hidden flex flex-col justify-between h-full group border border-border/80"
+              className="p-0 overflow-hidden flex flex-col justify-between h-full group border border-border/80 shadow-soft hover:shadow-card transition-all"
             >
-              {/* Card Top: Gradient Image Placeholder with Badges */}
-              <div
-                className={`h-48 w-full bg-gradient-to-br ${item.gradient} p-5 flex flex-col justify-between relative overflow-hidden`}
-              >
-                <div className="flex items-center justify-between z-10">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-surface/90 text-text-main shadow-xs">
-                    {item.level}
-                  </span>
+              {/* Card Top: Photography with Dark Gradient Scrim */}
+              <div className="h-52 w-full relative overflow-hidden bg-surfaceVariant">
+                {item.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                  />
+                ) : (
+                  <div className={`w-full h-full bg-gradient-to-br ${item.gradient}`} />
+                )}
 
-                  {/* Play Action Trigger */}
-                  <div className="w-8 h-8 rounded-full bg-surface/90 text-primary flex items-center justify-center shadow-soft group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                {/* Soft gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
+
+                {/* Badges & Play Action */}
+                <div className="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-surface/90 text-text-main shadow-xs backdrop-blur-xs">
+                      {item.level}
+                    </span>
+
+                    {/* Play Action Trigger */}
+                    <div className="w-9 h-9 rounded-full bg-surface/90 text-primary flex items-center justify-center shadow-soft group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                      <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-xs text-white/95 font-sans font-medium block drop-shadow-sm">
+                      Guided by {item.instructor}
+                    </span>
                   </div>
                 </div>
-
-                <div className="z-10">
-                  <span className="text-xs text-text-muted font-sans block">
-                    Guided by {item.instructor}
-                  </span>
-                </div>
-
-                {/* Subtle decorative aura ring */}
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-white/40 blur-2xl pointer-events-none" />
               </div>
 
               {/* Card Body */}
@@ -207,6 +224,21 @@ export function FeaturedPrograms({
               exit={{ opacity: 0, scale: 0.95 }}
               className="w-full max-w-lg bg-surface rounded-3xl overflow-hidden shadow-elevated border border-border p-6 space-y-6"
             >
+              {selectedProgram.image && (
+                <div className="w-full h-44 rounded-2xl overflow-hidden relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={selectedProgram.image}
+                    alt={selectedProgram.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <span className="absolute bottom-3 left-3 text-xs font-sans text-white/90">
+                    Sanctuary Kyoto Series
+                  </span>
+                </div>
+              )}
+
               <div className="flex items-center justify-between">
                 <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary">
                   {selectedProgram.level} • {selectedProgram.duration}

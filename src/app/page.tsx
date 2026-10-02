@@ -23,6 +23,7 @@ import {
   Phone,
   Send,
   X,
+  Volume2,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -33,6 +34,7 @@ import { TrainerProfiles } from "@/components/features/TrainerProfiles";
 import { PricingArchitecture } from "@/components/features/PricingArchitecture";
 import { SuccessStories } from "@/components/features/SuccessStories";
 import { WellnessConcierge } from "@/components/ai/WellnessConcierge";
+import { playSanctuaryChime } from "@/lib/sound";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -126,6 +128,13 @@ export default function HomePage() {
   const [corporateModalOpen, setCorporateModalOpen] = React.useState(false);
   const [contactSubmitted, setContactSubmitted] = React.useState(false);
   const [corporateSubmitted, setCorporateSubmitted] = React.useState(false);
+  const [chimeActive, setChimeActive] = React.useState(false);
+
+  const handlePlayChime = () => {
+    playSanctuaryChime();
+    setChimeActive(true);
+    setTimeout(() => setChimeActive(false), 3800);
+  };
 
   return (
     <div className="min-h-screen bg-background text-text-main flex flex-col font-sans selection:bg-primary/20 selection:text-primary">
@@ -182,36 +191,66 @@ export default function HomePage() {
                   Explore Classes
                 </Button>
               </motion.div>
+
+              {/* Interactive Solfeggio 432 Hz Sound Bell */}
+              <motion.div variants={fadeInUp} className="pt-2">
+                <button
+                  type="button"
+                  onClick={handlePlayChime}
+                  className="inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-surfaceVariant/80 hover:bg-surface border border-border/80 text-xs font-sans text-text-muted hover:text-text-main transition-all cursor-pointer shadow-soft group"
+                >
+                  <div className="w-6 h-6 rounded-full bg-primary/15 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Volume2 className={`w-3.5 h-3.5 ${chimeActive ? "animate-pulse text-primary" : ""}`} />
+                  </div>
+                  <span>{chimeActive ? "Resonating Solfeggio (432 Hz)..." : "Play 432 Hz Sanctuary Chime"}</span>
+                  <div className="flex items-center gap-0.5 h-3">
+                    <span className={`w-0.5 bg-primary rounded-full transition-all duration-300 ${chimeActive ? "h-3 animate-pulse" : "h-1.5"}`} />
+                    <span className={`w-0.5 bg-primary rounded-full transition-all duration-300 ${chimeActive ? "h-4 animate-pulse delay-75" : "h-2"}`} />
+                    <span className={`w-0.5 bg-primary rounded-full transition-all duration-300 ${chimeActive ? "h-2 animate-pulse delay-150" : "h-1"}`} />
+                  </div>
+                </button>
+              </motion.div>
             </motion.div>
 
-            {/* Right Column: Visual Composition with Organic Circular Graphic */}
+            {/* Right Column: Visual Composition with Editorial Photography & Ambient Breathing Halo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="md:col-span-6 lg:col-span-5 relative flex items-center justify-center min-h-[380px] sm:min-h-[460px]"
             >
-              {/* Organic Canvas Base */}
-              <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#ECD8CF] via-[#F4E9E2] to-[#FAF6F3] p-1 shadow-elevated flex items-center justify-center">
-                {/* Secondary Inset Ring */}
-                <div className="w-[88%] h-[88%] rounded-full bg-surface border border-border/80 flex items-center justify-center p-6 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-radial from-primary/10 via-transparent to-transparent opacity-80" />
-                  <div className="text-center space-y-2 z-10">
-                    <span className="font-accent text-4xl sm:text-5xl text-primary block">
+              {/* Pulsing Warm Terracotta Ambient Glow */}
+              <motion.div
+                animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.45, 0.25] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-primary/30 to-amber-500/20 blur-3xl pointer-events-none"
+              />
+
+              {/* Organic Canvas Base with Editorial Photography */}
+              <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#ECD8CF] via-[#F4E9E2] to-[#FAF6F3] p-1.5 shadow-elevated flex items-center justify-center group overflow-hidden">
+                <div className="w-full h-full rounded-full bg-surface border-4 border-surface shadow-inner overflow-hidden relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/hero-yoga.jpg"
+                    alt="Sanctuary Meditation Practice"
+                    className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
+                  />
+                  {/* Subtle bottom gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Overlaid Sanctuary Tag */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center pointer-events-none whitespace-nowrap">
+                    <span className="font-accent text-2xl sm:text-3xl text-white drop-shadow-md">
                       Peace in Motion
-                    </span>
-                    <span className="font-sans text-xs uppercase tracking-widest text-text-muted">
-                      Ancient Wisdom • Modern Science
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Floating Stat Card: Active Members */}
+              {/* Floating Stat Card: Active Members (Infinite Gentle Float) */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-4 -left-2 sm:left-4 z-20"
               >
                 <SurfaceCard hoverEffect className="p-4 flex items-center gap-3 shadow-card border border-border/60">
@@ -229,11 +268,10 @@ export default function HomePage() {
                 </SurfaceCard>
               </motion.div>
 
-              {/* Floating Stat Card: Rating */}
+              {/* Floating Stat Card: Rating (Infinite Gentle Float) */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.65 }}
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -bottom-6 -right-2 sm:right-4 z-20"
               >
                 <SurfaceCard hoverEffect className="p-4 flex items-center gap-3 shadow-card border border-border/60">
@@ -442,22 +480,26 @@ export default function HomePage() {
                 </div>
               </motion.div>
 
-              {/* Right Column: Large Circular Artwork with "Limited Offer" Floating Badge */}
+              {/* Right Column: Large Circular Artwork with Real Meditation Sound Image */}
               <motion.div
                 variants={fadeInUp}
                 className="md:col-span-5 flex items-center justify-center relative"
               >
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-surface border-4 border-surface shadow-elevated flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-4 rounded-full border border-dashed border-border flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Sparkles className="w-16 h-16 text-primary stroke-[1.25] animate-pulse" />
-                    </div>
-                  </div>
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-surface border-4 border-surface shadow-elevated flex items-center justify-center overflow-hidden group">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/program-meditation.jpg"
+                    alt="Tibetan Singing Bowls"
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Floating Circular Badge: "Limited Offer" */}
                 <motion.div
                   whileHover={{ rotate: 8, scale: 1.05 }}
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute -top-3 right-4 sm:right-8 w-24 h-24 rounded-full bg-primary text-white flex flex-col items-center justify-center text-center p-2 shadow-card"
                 >
                   <span className="text-[10px] font-sans uppercase font-bold tracking-widest leading-none">
