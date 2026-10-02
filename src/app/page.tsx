@@ -24,6 +24,7 @@ import { FeaturedPrograms } from "@/components/features/FeaturedPrograms";
 import { TrainerProfiles } from "@/components/features/TrainerProfiles";
 import { PricingArchitecture } from "@/components/features/PricingArchitecture";
 import { SuccessStories } from "@/components/features/SuccessStories";
+import { WellnessConcierge } from "@/components/ai/WellnessConcierge";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -510,6 +511,9 @@ export default function HomePage() {
 
       {/* Architectural Sanctuary Footer */}
       <Footer />
+
+      {/* Global AI Wellness Concierge */}
+      <WellnessConcierge />
     </div>
   );
 }

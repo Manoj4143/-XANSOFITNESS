@@ -43,3 +43,59 @@ When the Antigravity agent executes a task and makes a localized architectural o
 *   **Decision:** Enforced a strict rule: All actionable buttons must be pill-shaped (`rounded-full`), all cards must have large radii (`rounded-2xl`), and hero background graphics must use organic circles.
 *   **Rationale:** Circular and rounded geometries psychologically communicate safety, softness, and continuous flow.
 *   **Consequences:** Limits the use of standard square UI patterns, requiring customized styling across forms and cards.
+
+### ADR-010: Simulated Streaming Protocol for Vercel AI SDK Integration
+*   **Date:** 2026-10-02
+*   **Context:** The Phase 5 AI Wellness Concierge requires an active API route simulating the LangGraph agent while adhering strictly to the `AGENT.MD` "Xanso Yoga Guide" persona.
+*   **Decision:** Constructed `src/app/api/chat/route.ts` using standard Web Streams (`ReadableStream`) compatible with Vercel AI SDK streaming protocols. Configured realistic typing delays and context-aware responses (handling greetings, class searches, injuries, and trial recommendations).
+*   **Rationale:** Enables immediate frontend verification of stream rendering, typing states, and error handling without requiring live OpenAI or LangGraph server keys at scaffolding time.
+*   **Consequences:** Uses deterministic simulation logic that must be replaced by the live LangGraph agent node pipeline in production.
+
+### ADR-011: Fixed Floating Concierge Window with Bi-directional Morphism
+*   **Date:** 2026-10-02
+*   **Context:** The AI Concierge needs to be globally available across the sanctuary experience without distracting the user or breaking the warm organic design system.
+*   **Decision:** Built `src/components/ai/WellnessConcierge.tsx` with a fixed bottom-right Floating Action Button (`bg-primary shadow-soft`) that smoothly morphs between a `MessageCircle` and `X` icon. The chat window expands from `origin-bottom-right` using `<SurfaceCard>`-style styling (`bg-surface rounded-2xl shadow-soft border border-surfaceVariant`). Chat bubbles adopt asymmetric organic tails (`rounded-tr-sm` for user terracotta, `rounded-tl-sm` for AI beige).
+*   **Rationale:** High spatial predictability and tactile micro-animations reinforce the calm, responsive atmosphere of the sanctuary.
+*   **Consequences:** Requires responsive max-height and viewport boundary clamps on smaller mobile screens (`max-w-[calc(100vw-2rem)]`).
+
+### ADR-012: Minimalist Member Dashboard Architecture with Holistic Streak Gamification
+*   **Date:** 2026-10-02
+*   **Context:** The platform requires an authenticated member view to track classes, programs, and daily commitments while avoiding aggressive, hyper-metricized fitness tropes.
+*   **Decision:** Implemented `src/app/(dashboard)/layout.tsx` and `src/app/(dashboard)/dashboard/page.tsx` (and `src/app/(dashboard)/page.tsx`) with a quiet sidebar navigation (`bg-background` and `bg-surface` active states). Sections include "Upcoming Yoga Classes", "Current Program", and an organic "Streak Tracker" celebrating 7-Day and 30-Day mindfulness badges.
+*   **Rationale:** Celebrates daily contemplative consistency and nervous system ease instead of high-stress competitive calorie/heart rate metrics.
+*   **Consequences:** Introduces nested routing under Route Groups `(dashboard)` requiring layout encapsulation.
+
+### ADR-013: Supabase Schema Design with Strict Row Level Security (RLS)
+*   **Date:** 2026-10-02
+*   **Context:** User profiles, programs, sessions, and AI conversations require relational storage with granular access control enforcing zero unauthorized data leakage.
+*   **Decision:** Authored `supabase/schema.sql` defining `users`, `profiles`, `programs`, `sessions_log`, and `ai_chat_history`. Enabled RLS on all tables with explicit policies: `profiles` and `ai_chat_history` restrict read/write to `auth.uid() = user_id`, while `programs` allows public `SELECT` and restricts writes to admins. Added automated `handle_new_user()` trigger for synchronization with `auth.users`.
+*   **Rationale:** Enforces zero-trust data boundaries directly at the database engine level per `SECURITY.MD`.
+*   **Consequences:** Requires foreign keys linking to Supabase's `auth.users(id)`.
+
+### ADR-014: Server Actions for Gamified Streak & Badge Progression
+*   **Date:** 2026-10-02
+*   **Context:** When members complete an asana or pranayama session, their streak count and milestone badges must update reliably without exposing client-side tampering.
+*   **Decision:** Implemented Next.js Server Action `logSessionCompletion(userId, programId)` in `src/app/actions/progress.ts`. Executes atomic increment of `streak_count`, writes session timestamp, checks threshold conditions (7-day "Flow Beacon", 14-day "Pranayama Adept", 30-day "Lotus Master"), and returns unlocked achievements.
+*   **Rationale:** Keeps business progression logic encapsulated on the server while preserving responsive UI updates.
+*   **Consequences:** Relies on server-side invocation with authenticated session cookies.
+
+### ADR-015: Modular LangGraph State Machine Architecture
+*   **Date:** 2026-10-02
+*   **Context:** The AI Wellness Concierge requires stateful transitions across intent classification, assessment question loops, and knowledge retrieval.
+*   **Decision:** Created `src/agent/graph.ts` structuring an executable `StateGraph` around the `AgentState` schema defined in `AGENT.MD` (`messages`, `intent`, `assessmentProgress`, `recommendedProgramId`). Scaffolded `ClassifierNode`, `AssessmentNode`, and `RAG_Node` with clear execution edges and conditional routing.
+*   **Rationale:** Decouples LLM prompt routing and tool invocation from Next.js HTTP request lifecycles, enabling testable graph cycles.
+*   **Consequences:** Introduces graph state schemas that must be preserved across user turns.
+
+### ADR-016: Vitest & React Testing Library for Fast Unit/Component Testing
+*   **Date:** 2026-10-02
+*   **Context:** Need a fast, ESM-native testing harness compatible with Next.js App Router, TypeScript aliases (`@/*`), and React 19 component trees.
+*   **Decision:** Selected Vitest over Jest along with `@testing-library/react` and `jsdom`.
+*   **Rationale:** Vitest reuses Vite's fast transformation engine, supports native ESM without complex Babel or `ts-jest` configurations, executes in sub-seconds, and shares test syntax with Jest/Testing Library.
+*   **Consequences:** Requires custom path resolution in `vitest.config.ts` matching `tsconfig.json`.
+
+### ADR-017: Playwright for End-to-End (E2E) Sanctuary Journey Simulation
+*   **Date:** 2026-10-02
+*   **Context:** E2E validation requires verifying real browser behaviors: scrolling animations, floating FAB triggers, expanding AI chat panels, and dynamic monthly/annual billing recalculations.
+*   **Decision:** Implemented Playwright (`@playwright/test`) for headless and headed cross-browser test automation.
+*   **Rationale:** Playwright provides auto-waiting, resilient element locators, robust network interception, and video/trace capture capabilities without flaky race conditions.
+*   **Consequences:** Requires separate test execution scripts (`npx playwright test`) and a running dev/preview server.
