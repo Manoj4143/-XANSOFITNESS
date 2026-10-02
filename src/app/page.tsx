@@ -20,6 +20,10 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
+import { FeaturedPrograms } from "@/components/features/FeaturedPrograms";
+import { TrainerProfiles } from "@/components/features/TrainerProfiles";
+import { PricingArchitecture } from "@/components/features/PricingArchitecture";
+import { SuccessStories } from "@/components/features/SuccessStories";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -173,7 +177,6 @@ export default function HomePage() {
             >
               {/* Solid Terracotta Circular Backdrop */}
               <div className="relative w-[300px] sm:w-[380px] lg:w-[460px] aspect-square rounded-full bg-primary flex items-center justify-center shadow-elevated overflow-hidden">
-                {/* Subtle organic light gradient wash */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/20 pointer-events-none" />
 
                 {/* Stylized Silhouette Artwork for Yoga Pose */}
@@ -183,11 +186,8 @@ export default function HomePage() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <g opacity="0.95">
-                    {/* Head */}
                     <circle cx="200" cy="115" r="28" />
-                    {/* Torso & Core Alignment */}
                     <path d="M190 148 C185 185 180 230 200 255 C220 230 215 185 210 148 Z" />
-                    {/* Extended Arms in Prayer / Mudra */}
                     <path
                       d="M190 165 C155 185 130 200 115 185 C108 178 120 160 145 152 C168 145 185 158 190 165 Z"
                       fillOpacity="0.9"
@@ -196,12 +196,10 @@ export default function HomePage() {
                       d="M210 165 C245 185 270 200 285 185 C292 178 280 160 255 152 C232 145 215 158 210 165 Z"
                       fillOpacity="0.9"
                     />
-                    {/* Lotus / Padmasana Base Folded Limbs */}
                     <path
                       d="M135 270 C150 255 175 250 200 255 C225 250 250 255 265 270 C280 285 260 305 200 305 C140 305 120 285 135 270 Z"
                       fillOpacity="0.95"
                     />
-                    {/* Subtle aura base ring */}
                     <circle
                       cx="200"
                       cy="285"
@@ -387,7 +385,6 @@ export default function HomePage() {
                       <Icon className="w-16 h-16 stroke-[1.25]" />
                     </div>
 
-                    {/* Ambient subtle blur glow in card background */}
                     <div className="absolute -bottom-8 -right-8 w-28 h-28 bg-white/40 rounded-full blur-xl pointer-events-none" />
                   </div>
 
@@ -414,7 +411,19 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            4. PROMO SECTION (bg-surfaceVariant with circular visual)
+            4. FEATURED PROGRAMS (Structured Daily Schedule)
+        ======================================================== */}
+        <FeaturedPrograms />
+
+        {/* ========================================================
+            5. TRAINER PROFILES (The Sanctuary Collective)
+        ======================================================== */}
+        <section id="training">
+          <TrainerProfiles />
+        </section>
+
+        {/* ========================================================
+            6. PROMO SECTION (bg-surfaceVariant with circular visual)
         ======================================================== */}
         <section className="py-16 md:py-24 px-4 sm:px-6 md:px-8 bg-surfaceVariant border-y border-border/80">
           <div className="max-w-7xl mx-auto">
@@ -461,7 +470,6 @@ export default function HomePage() {
                 className="md:col-span-5 flex items-center justify-center relative"
               >
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-surface border-4 border-surface shadow-elevated flex items-center justify-center overflow-hidden">
-                  {/* Subtle inner concentric yoga circles */}
                   <div className="absolute inset-4 rounded-full border border-dashed border-border flex items-center justify-center">
                     <div className="w-3/4 h-3/4 rounded-full bg-primary/10 flex items-center justify-center">
                       <Sparkles className="w-16 h-16 text-primary stroke-[1.25] animate-pulse" />
@@ -488,6 +496,16 @@ export default function HomePage() {
             </motion.div>
           </div>
         </section>
+
+        {/* ========================================================
+            7. PRICING ARCHITECTURE (3-Tier with Switch)
+        ======================================================== */}
+        <PricingArchitecture />
+
+        {/* ========================================================
+            8. SUCCESS STORIES (Organic Offset Masonry Grid)
+        ======================================================== */}
+        <SuccessStories />
       </main>
 
       {/* Architectural Sanctuary Footer */}
