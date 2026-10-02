@@ -1,7 +1,8 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   Lock,
   Star,
@@ -15,6 +16,13 @@ import {
   Heart,
   Flame,
   Wind,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Building2,
+  Phone,
+  Send,
+  X,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -43,92 +51,99 @@ const staggerContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+      staggerChildren: 0.14,
     },
   },
 };
 
-const FEATURE_ITEMS = [
+const STATS_DATA = [
   {
     icon: Video,
-    title: "Live Expert-Led",
-    desc: "Interactive daily studio streams",
+    number: "500+",
+    label: "On-Demand Sessions",
+    description: "Multi-discipline practices across all skill horizons",
   },
   {
     icon: Sliders,
-    title: "Personalised Plans",
-    desc: "Calibrated to your breath & goals",
+    number: "100%",
+    label: "Personalized Paths",
+    description: "Adaptive progressions matched to your somatic rhythm",
   },
   {
     icon: Clock,
-    title: "Flexible Timings",
-    desc: "On-demand anytime access",
+    number: "15-90",
+    label: "Minute Practices",
+    description: "Tailored to complement and honor your daily routine",
   },
   {
     icon: ShieldCheck,
-    title: "24/7 Support",
-    desc: "Guided mindfulness concierges",
+    number: "Top 1%",
+    label: "Vetted Instructors",
+    description: "Certified lineage masters and anatomical specialists",
   },
 ];
 
 const CATEGORY_ITEMS = [
   {
     title: "Vinyasa Flow",
-    level: "Dynamic Movement",
-    duration: "45 mins",
+    level: "All Levels",
+    description: "Fluid, breath-synchronized movement to cultivate heat and mobility.",
+    duration: "20-60 min",
     icon: Flame,
-    accent: "from-[#F7ECE8] to-[#F1DDD7]",
-    badgeColor: "text-primary bg-primary/10",
-    description: "Harmonizing breath with continuous dynamic postures.",
+    accent: "from-[#F6EDE8] to-[#ECD8CF]",
+    badgeColor: "bg-surface/90 text-primary",
   },
   {
-    title: "Restorative Yin",
-    level: "Deep Healing",
-    duration: "60 mins",
+    title: "Yin & Restorative",
+    level: "Beginner to Intermediate",
+    description: "Passive, prolonged postures targeting deep connective fascia and nervous regulation.",
+    duration: "45-75 min",
     icon: Heart,
-    accent: "from-[#EFECE8] to-[#E5E0D8]",
-    badgeColor: "text-[#6B655F] bg-[#6B655F]/10",
-    description: "Long passive holds targeting deep fascial release.",
+    accent: "from-[#EFECE8] to-[#E3DCD3]",
+    badgeColor: "bg-surface/90 text-[#605B54]",
   },
   {
-    title: "Meditation",
-    level: "Mind & Breath",
-    duration: "25 mins",
+    title: "Pranayama & Breath",
+    level: "Foundational",
+    description: "Ancient breathwork technologies designed to balance the vagus nerve and clarify consciousness.",
+    duration: "10-30 min",
     icon: Wind,
-    accent: "from-[#F3EFE9] to-[#EAE4DC]",
-    badgeColor: "text-[#842503] bg-[#842503]/10",
-    description: "Pranayama breath control and tranquil quietude.",
+    accent: "from-[#F8EDE6] to-[#EAD5C8]",
+    badgeColor: "bg-surface/90 text-primary",
   },
   {
-    title: "1:1 Yoga",
-    level: "Private Mentorship",
-    duration: "Custom",
+    title: "Sound & Meditation",
+    level: "All Practitioners",
+    description: "Sacred acoustic frequencies and guided stillness for deep mental decompression.",
+    duration: "15-45 min",
     icon: Sparkles,
-    accent: "from-[#F8ECE6] to-[#ECD5CB]",
-    badgeColor: "text-primary bg-primary/15",
-    description: "Tailored alignment corrections with master teachers.",
+    accent: "from-[#F3ECE4] to-[#E7DDD0]",
+    badgeColor: "bg-surface/90 text-[#7C6E5F]",
   },
 ];
 
 export default function HomePage() {
+  const [corporateModalOpen, setCorporateModalOpen] = React.useState(false);
+  const [contactSubmitted, setContactSubmitted] = React.useState(false);
+  const [corporateSubmitted, setCorporateSubmitted] = React.useState(false);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background text-text-main selection:bg-primary/20 selection:text-primary">
-      {/* Persistent Sanctuary Navigation */}
+    <div className="min-h-screen bg-background text-text-main flex flex-col font-sans selection:bg-primary/20 selection:text-primary">
+      {/* Sticky Global Navigation */}
       <Navbar />
 
       <main className="flex-1">
         {/* ========================================================
-            1. HERO SECTION (Split 2-Column Layout)
+            1. HERO SECTION (Split Layout)
         ======================================================== */}
-        <section className="relative overflow-hidden pt-12 pb-24 md:pt-16 md:pb-32 px-4 sm:px-6 md:px-8">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Narrative & CTAs */}
+        <section className="relative pt-12 md:pt-20 pb-20 md:pb-32 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Column: Typography & CTAs */}
             <motion.div
               initial="hidden"
               animate="visible"
               variants={staggerContainer}
-              className="space-y-6 sm:space-y-8 z-10"
+              className="md:col-span-6 lg:col-span-7 space-y-6 md:space-y-8 z-10"
             >
               <motion.div variants={fadeInUp} className="inline-block">
                 <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20">
@@ -138,10 +153,10 @@ export default function HomePage() {
 
               <motion.h1
                 variants={fadeInUp}
-                className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal leading-[1.08] tracking-tight text-text-main"
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-text-main leading-[1.08]"
               >
                 Find Your <br />
-                <span className="font-accent text-primary text-6xl sm:text-7xl lg:text-8xl block mt-2">
+                <span className="font-accent text-primary text-5xl sm:text-6xl md:text-7xl lg:text-8xl block mt-1">
                   Center
                 </span>
               </motion.h1>
@@ -159,108 +174,84 @@ export default function HomePage() {
                 variants={fadeInUp}
                 className="flex flex-wrap items-center gap-4 pt-2"
               >
-                <Button variant="primary" size="lg">
+                <Button variant="primary" size="lg" href="#pricing">
                   Start Free Trial
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Button>
-                <Button variant="secondary" size="lg">
+                <Button variant="secondary" size="lg" href="#programs">
                   Explore Classes
                 </Button>
               </motion.div>
             </motion.div>
 
-            {/* Right Column: Hero Visual with Terracotta Circle & Overlapping SurfaceCards */}
+            {/* Right Column: Visual Composition with Organic Circular Graphic */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex items-center justify-center py-8 md:py-0"
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="md:col-span-6 lg:col-span-5 relative flex items-center justify-center min-h-[380px] sm:min-h-[460px]"
             >
-              {/* Solid Terracotta Circular Backdrop */}
-              <div className="relative w-[300px] sm:w-[380px] lg:w-[460px] aspect-square rounded-full bg-primary flex items-center justify-center shadow-elevated overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/20 pointer-events-none" />
-
-                {/* Stylized Silhouette Artwork for Yoga Pose */}
-                <svg
-                  viewBox="0 0 400 400"
-                  className="w-[85%] h-[85%] text-white fill-current drop-shadow-xl"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="0.95">
-                    <circle cx="200" cy="115" r="28" />
-                    <path d="M190 148 C185 185 180 230 200 255 C220 230 215 185 210 148 Z" />
-                    <path
-                      d="M190 165 C155 185 130 200 115 185 C108 178 120 160 145 152 C168 145 185 158 190 165 Z"
-                      fillOpacity="0.9"
-                    />
-                    <path
-                      d="M210 165 C245 185 270 200 285 185 C292 178 280 160 255 152 C232 145 215 158 210 165 Z"
-                      fillOpacity="0.9"
-                    />
-                    <path
-                      d="M135 270 C150 255 175 250 200 255 C225 250 250 255 265 270 C280 285 260 305 200 305 C140 305 120 285 135 270 Z"
-                      fillOpacity="0.95"
-                    />
-                    <circle
-                      cx="200"
-                      cy="285"
-                      r="75"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeDasharray="4 6"
-                      opacity="0.3"
-                    />
-                  </g>
-                </svg>
+              {/* Organic Canvas Base */}
+              <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#ECD8CF] via-[#F4E9E2] to-[#FAF6F3] p-1 shadow-elevated flex items-center justify-center">
+                {/* Secondary Inset Ring */}
+                <div className="w-[88%] h-[88%] rounded-full bg-surface border border-border/80 flex items-center justify-center p-6 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-radial from-primary/10 via-transparent to-transparent opacity-80" />
+                  <div className="text-center space-y-2 z-10">
+                    <span className="font-accent text-4xl sm:text-5xl text-primary block">
+                      Peace in Motion
+                    </span>
+                    <span className="font-sans text-xs uppercase tracking-widest text-text-muted">
+                      Ancient Wisdom • Modern Science
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              {/* Overlapping SurfaceCard 1: 10K+ Happy Members */}
+              {/* Floating Stat Card: Active Members */}
               <motion.div
-                initial={{ opacity: 0, x: -30, y: 20 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.7 }}
-                className="absolute -bottom-4 sm:bottom-4 left-0 sm:-left-6 z-20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="absolute -top-4 -left-2 sm:left-4 z-20"
               >
-                <SurfaceCard
-                  hoverEffect
-                  className="px-4 py-3 sm:px-5 sm:py-4 flex items-center gap-3 border border-border shadow-card bg-surface/95 backdrop-blur-sm"
-                >
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <Lock className="w-4 h-4" />
+                <SurfaceCard hoverEffect className="p-4 flex items-center gap-3 shadow-card border border-border/60">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                    <Heart className="w-5 h-5 fill-primary/20" />
                   </div>
                   <div>
-                    <div className="font-display text-base sm:text-lg font-semibold text-text-main">
-                      10K+ Members
-                    </div>
-                    <div className="text-xs text-text-muted font-sans">
-                      Verified Global Sanctuary
-                    </div>
+                    <p className="font-display text-lg font-bold text-text-main leading-none">
+                      10,000+
+                    </p>
+                    <p className="font-sans text-xs text-text-muted mt-0.5">
+                      Mindful Practitioners
+                    </p>
                   </div>
                 </SurfaceCard>
               </motion.div>
 
-              {/* Overlapping SurfaceCard 2: 4.9 Mindful Rating */}
+              {/* Floating Stat Card: Rating */}
               <motion.div
-                initial={{ opacity: 0, x: 30, y: -20 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.7 }}
-                className="absolute -top-4 sm:top-6 right-0 sm:-right-6 z-20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.65 }}
+                className="absolute -bottom-6 -right-2 sm:right-4 z-20"
               >
-                <SurfaceCard
-                  hoverEffect
-                  className="px-4 py-3 sm:px-5 sm:py-4 flex items-center gap-3 border border-border shadow-card bg-surface/95 backdrop-blur-sm"
-                >
-                  <div className="w-10 h-10 rounded-full bg-[#E8A348]/15 flex items-center justify-center text-[#C97B1A]">
-                    <Star className="w-4 h-4 fill-current" />
+                <SurfaceCard hoverEffect className="p-4 flex items-center gap-3 shadow-card border border-border/60">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 text-amber-600 flex items-center justify-center">
+                    <Star className="w-5 h-5 fill-amber-500 text-amber-500" />
                   </div>
                   <div>
-                    <div className="font-display text-base sm:text-lg font-semibold text-text-main">
-                      4.9 Mindful Rating
+                    <div className="flex items-center gap-1">
+                      <span className="font-display text-lg font-bold text-text-main leading-none">
+                        4.9
+                      </span>
+                      <span className="text-xs text-amber-600 font-sans font-bold">
+                        ★
+                      </span>
                     </div>
-                    <div className="text-xs text-text-muted font-sans">
-                      From 2,400+ reviews
-                    </div>
+                    <p className="font-sans text-xs text-text-muted mt-0.5">
+                      Sanctuary Rating
+                    </p>
                   </div>
                 </SurfaceCard>
               </motion.div>
@@ -269,84 +260,66 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            2. FLOATING FEATURES BAR (-mt-12 overlap)
+            2. FLOATING FEATURES BAR (Architectural Elevation)
         ======================================================== */}
-        <section className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 -mt-10 sm:-mt-14">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <SurfaceCard
-              hoverEffect={false}
-              className="p-6 sm:p-8 bg-surface border border-border/80 shadow-soft"
-            >
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-border/60">
-                {FEATURE_ITEMS.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={item.title}
-                      className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
-                        idx > 0 ? "pt-4 sm:pt-0 sm:pl-6 lg:pl-8" : ""
-                      }`}
-                    >
-                      <div className="w-12 h-12 rounded-2xl bg-surfaceVariant flex-shrink-0 flex items-center justify-center text-primary">
-                        <Icon className="w-5 h-5 stroke-[1.75]" />
+        <section className="relative z-20 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <SurfaceCard className="p-6 sm:p-8 md:p-10 shadow-elevated border border-border/80">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-border/60">
+              {STATS_DATA.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className={`flex flex-col space-y-2.5 ${
+                      index !== 0 ? "pt-6 sm:pt-0 sm:pl-6" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-surfaceVariant text-primary flex items-center justify-center">
+                        <Icon className="w-4 h-4 stroke-[1.75]" />
                       </div>
-                      <div>
-                        <h3 className="font-display text-base font-semibold text-text-main">
-                          {item.title}
-                        </h3>
-                        <p className="font-sans text-xs text-text-muted mt-0.5">
-                          {item.desc}
-                        </p>
-                      </div>
+                      <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-text-main">
+                        {item.number}
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
-            </SurfaceCard>
-          </motion.div>
+                    <h4 className="font-display text-sm font-semibold text-text-main pt-1">
+                      {item.label}
+                    </h4>
+                    <p className="font-sans text-xs text-text-muted leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </SurfaceCard>
         </section>
 
         {/* ========================================================
-            3. EXPLORE YOUR PRACTICE (Category Grid)
+            3. PRACTICE CATEGORIES GRID (Exploration Grid)
         ======================================================== */}
         <section
           id="programs"
-          className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          className="pt-24 md:pt-32 pb-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
         >
-          {/* Section Header */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12"
-          >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                CURATED DISCIPLINES
+              <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
+                DISCOVER YOUR PRACTICE
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-text-main mt-1">
-                Deepen your{" "}
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main mt-1">
+                Explore{" "}
                 <span className="font-accent text-primary text-4xl sm:text-5xl md:text-6xl ml-1">
-                  Practice
+                  Disciplines
                 </span>
               </h2>
             </div>
-            <Link
-              href="#classes"
-              className="group inline-flex items-center gap-1.5 font-sans text-sm font-medium text-text-main hover:text-primary transition-colors"
-            >
-              <span>View All Classes</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </motion.div>
+            <p className="font-sans text-sm text-text-muted max-w-md">
+              From invigorating solar flows to restorative lunar stillness,
+              discover sequences tuned to where your body is today.
+            </p>
+          </div>
 
-          {/* 4-Column Tall Category Cards */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -357,55 +330,59 @@ export default function HomePage() {
             {CATEGORY_ITEMS.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div
+                <Link
                   key={item.title}
-                  variants={fadeInUp}
-                  className="group relative bg-surfaceVariant rounded-2xl overflow-hidden border border-border/70 flex flex-col justify-between hover:shadow-card transition-all duration-300"
+                  href="/dashboard/programs"
+                  className="group block"
                 >
-                  {/* Top: Artistic Gradient Canvas & Pose Badge */}
-                  <div
-                    className={`h-52 w-full bg-gradient-to-br ${item.accent} p-6 flex flex-col justify-between relative overflow-hidden`}
+                  <motion.div
+                    variants={fadeInUp}
+                    className="group relative bg-surfaceVariant rounded-2xl overflow-hidden border border-border/70 flex flex-col justify-between hover:shadow-card transition-all duration-300 h-full"
                   >
-                    <div className="flex items-center justify-between z-10">
-                      <span
-                        className={`text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${item.badgeColor}`}
-                      >
-                        {item.level}
-                      </span>
-                      {/* Floating Circular Action Arrow */}
-                      <button
-                        type="button"
-                        aria-label={`Explore ${item.title}`}
-                        className="w-9 h-9 rounded-full bg-surface text-text-main flex items-center justify-center shadow-soft group-hover:bg-primary group-hover:text-white transition-colors duration-200"
-                      >
-                        <ArrowUpRight className="w-4 h-4" />
-                      </button>
+                    {/* Top: Artistic Gradient Canvas & Pose Badge */}
+                    <div
+                      className={`h-52 w-full bg-gradient-to-br ${item.accent} p-6 flex flex-col justify-between relative overflow-hidden`}
+                    >
+                      <div className="flex items-center justify-between z-10">
+                        <span
+                          className={`text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${item.badgeColor}`}
+                        >
+                          {item.level}
+                        </span>
+                        {/* Floating Circular Action Arrow */}
+                        <div
+                          aria-label={`Explore ${item.title}`}
+                          className="w-9 h-9 rounded-full bg-surface text-text-main flex items-center justify-center shadow-soft group-hover:bg-primary group-hover:text-white transition-colors duration-200"
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-center my-auto z-10 text-primary/80 group-hover:scale-110 transition-transform duration-300">
+                        <Icon className="w-16 h-16 stroke-[1.25]" />
+                      </div>
+
+                      <div className="absolute -bottom-8 -right-8 w-28 h-28 bg-white/40 rounded-full blur-xl pointer-events-none" />
                     </div>
 
-                    <div className="flex items-center justify-center my-auto z-10 text-primary/80 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-16 h-16 stroke-[1.25]" />
-                    </div>
+                    {/* Bottom: Category Description & Details */}
+                    <div className="p-6 bg-surface flex-1 flex flex-col justify-between space-y-4">
+                      <div>
+                        <h3 className="font-display text-2xl font-medium text-text-main group-hover:text-primary transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="font-sans text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
 
-                    <div className="absolute -bottom-8 -right-8 w-28 h-28 bg-white/40 rounded-full blur-xl pointer-events-none" />
-                  </div>
-
-                  {/* Bottom: Category Description & Details */}
-                  <div className="p-6 bg-surface flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <h3 className="font-display text-2xl font-medium text-text-main group-hover:text-primary transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="font-sans text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">
-                        {item.description}
-                      </p>
+                      <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs text-text-muted font-sans">
+                        <span>{item.duration}</span>
+                        <span className="font-medium text-primary">Explore &rarr;</span>
+                      </div>
                     </div>
-
-                    <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs text-text-muted font-sans">
-                      <span>{item.duration}</span>
-                      <span className="font-medium text-primary">Explore &rarr;</span>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               );
             })}
           </motion.div>
@@ -458,7 +435,7 @@ export default function HomePage() {
                 </p>
 
                 <div className="pt-2">
-                  <Button variant="dark" size="lg">
+                  <Button variant="dark" size="lg" href="#pricing">
                     Claim 50% Off Annual Sanctuary
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -504,9 +481,327 @@ export default function HomePage() {
         <PricingArchitecture />
 
         {/* ========================================================
-            8. SUCCESS STORIES (Organic Offset Masonry Grid)
+            8. CORPORATE SANCTUARY (Enterprise Well-Being)
+        ======================================================== */}
+        <section id="corporate" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+          <div className="bg-surface rounded-3xl p-8 sm:p-12 md:p-16 border border-border shadow-elevated">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-7 space-y-6">
+                <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
+                  ORGANIZATIONAL RESILIENCE
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main">
+                  Corporate Sanctuary & Executive Somatics
+                </h2>
+                <p className="font-sans text-sm sm:text-base text-text-muted leading-relaxed max-w-xl">
+                  Elevate team focus, eliminate postural fatigue, and cultivate collective mental clarity with custom corporate subscriptions, live private streams, and executive retreats.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                  <div className="p-4 rounded-2xl bg-surfaceVariant">
+                    <span className="font-display text-xl font-bold text-text-main block">15-Min</span>
+                    <span className="text-xs font-sans text-text-muted">Desk Posture Resets</span>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-surfaceVariant">
+                    <span className="font-display text-xl font-bold text-text-main block">100%</span>
+                    <span className="text-xs font-sans text-text-muted">Dedicated Guide</span>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-surfaceVariant">
+                    <span className="font-display text-xl font-bold text-text-main block">Custom</span>
+                    <span className="text-xs font-sans text-text-muted">HRV Analytics</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex flex-wrap gap-4">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onClick={() => setCorporateModalOpen(true)}
+                  >
+                    <Building2 className="w-4 h-4 mr-2" />
+                    Inquire for Team Sanctuary
+                  </Button>
+                  <Button variant="secondary" size="lg" href="#contact">
+                    Speak with Concierge
+                  </Button>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 p-8 rounded-3xl bg-surfaceVariant border border-border flex flex-col justify-between space-y-6">
+                <div className="space-y-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-text-muted">
+                    TRUSTED BY MINDFUL TEAMS
+                  </span>
+                  <div className="space-y-3 font-sans text-sm text-text-main">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span>Executive breath pacing before quarterly reviews</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span>Private live broadcasts scheduled to your time zones</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span>Team engagement portal & streak leaderboards</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-border/80">
+                  <p className="font-serif italic text-text-muted text-xs sm:text-sm">
+                    "Xanso transformed our design team's posture and afternoon focus. The 15-minute desk resets are non-negotiable now."
+                  </p>
+                  <span className="font-sans text-xs font-semibold text-text-main block mt-2">
+                    — Creative Director, Studio Monolith
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Corporate Inquiry Modal */}
+        <AnimatePresence>
+          {corporateModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-text-main/70 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="w-full max-w-lg bg-surface rounded-3xl overflow-hidden shadow-elevated border border-border p-6 sm:p-8 space-y-6"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary">
+                    Corporate Briefing
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCorporateModalOpen(false);
+                      setCorporateSubmitted(false);
+                    }}
+                    className="w-8 h-8 rounded-full bg-surfaceVariant hover:bg-border text-text-main flex items-center justify-center cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {corporateSubmitted ? (
+                  <div className="text-center py-8 space-y-3">
+                    <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
+                    <h3 className="font-display text-2xl font-medium text-text-main">
+                      Inquiry Received
+                    </h3>
+                    <p className="font-sans text-xs sm:text-sm text-text-muted max-w-xs mx-auto">
+                      Our Executive Wellness Director will contact you within 24 hours with custom corporate options.
+                    </p>
+                    <Button
+                      variant="primary"
+                      size="md"
+                      onClick={() => {
+                        setCorporateModalOpen(false);
+                        setCorporateSubmitted(false);
+                      }}
+                    >
+                      Close Window
+                    </Button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setCorporateSubmitted(true);
+                    }}
+                    className="space-y-4 font-sans text-xs sm:text-sm"
+                  >
+                    <div>
+                      <h3 className="font-display text-2xl font-medium text-text-main">
+                        Bring Xanso to Your Company
+                      </h3>
+                      <p className="text-text-muted mt-1 text-xs">
+                        Custom plans starting from 10 team members.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-text-main block">
+                        Work Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="you@company.com"
+                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-text-main block">
+                          Company Name
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Acme Corp"
+                          className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-text-main block">
+                          Team Size
+                        </label>
+                        <select className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30">
+                          <option>10 - 50</option>
+                          <option>50 - 250</option>
+                          <option>250+</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <Button variant="primary" size="lg" type="submit" className="w-full justify-center">
+                      Submit Briefing Request
+                    </Button>
+                  </form>
+                )}
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* ========================================================
+            9. SUCCESS STORIES (Organic Offset Masonry Grid)
         ======================================================== */}
         <SuccessStories />
+
+        {/* ========================================================
+            10. CONTACT SANCTUARY SECTION
+        ======================================================== */}
+        <section id="contact" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Left: Sanctuary Details */}
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
+                LET US GUIDE YOU
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-normal text-text-main">
+                Connect with the Sanctuary
+              </h2>
+              <p className="font-sans text-xs sm:text-sm text-text-muted leading-relaxed">
+                Whether you have questions regarding our teacher lineage, subscription billing,
+                or 1:1 guided mentorship, our concierge is here to assist.
+              </p>
+
+              <div className="space-y-4 pt-4 font-sans text-xs sm:text-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-medium text-text-main block">Email Sanctuary Concierge</span>
+                    <span className="text-text-muted">concierge@xanso.com</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-medium text-text-main block">Physical Studios & Tea Houses</span>
+                    <span className="text-text-muted">Kyoto (Higashiyama) • London (Mayfair)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Contact Form */}
+            <SurfaceCard className="lg:col-span-7 p-6 sm:p-8 border border-border shadow-soft">
+              {contactSubmitted ? (
+                <div className="text-center py-12 space-y-3">
+                  <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
+                  <h3 className="font-display text-2xl font-medium text-text-main">
+                    Message Received
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-text-muted max-w-sm mx-auto">
+                    Thank you for reaching out. A dedicated concierge guide will review your inquiry and reply within 24 hours.
+                  </p>
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={() => setContactSubmitted(false)}
+                    className="mt-4"
+                  >
+                    Send Another Note
+                  </Button>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setContactSubmitted(true);
+                  }}
+                  className="space-y-5 font-sans"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Elena"
+                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="elena@sanctuary.com"
+                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                      Inquiry Focus
+                    </label>
+                    <select className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30">
+                      <option>Membership & Billing Inquiries</option>
+                      <option>1:1 Guided Mentorship</option>
+                      <option>Corporate Sanctuary Program</option>
+                      <option>Teacher Training & Retreats</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                      Your Message
+                    </label>
+                    <textarea
+                      rows={4}
+                      required
+                      placeholder="Share your goals or questions with us..."
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    />
+                  </div>
+
+                  <Button variant="primary" size="lg" type="submit" className="w-full justify-center">
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Inquiry Note
+                  </Button>
+                </form>
+              )}
+            </SurfaceCard>
+          </div>
+        </section>
       </main>
 
       {/* Architectural Sanctuary Footer */}

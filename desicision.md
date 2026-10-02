@@ -99,3 +99,19 @@ When the Antigravity agent executes a task and makes a localized architectural o
 *   **Decision:** Implemented Playwright (`@playwright/test`) for headless and headed cross-browser test automation.
 *   **Rationale:** Playwright provides auto-waiting, resilient element locators, robust network interception, and video/trace capture capabilities without flaky race conditions.
 *   **Consequences:** Requires separate test execution scripts (`npx playwright test`) and a running dev/preview server.
+
+### ADR-018: Full-Spectrum Interactive Navigation, Route Coverage, and Click Reliability
+*   **Date:** 2026-10-02
+*   **Context:** Buttons across the platform previously suffered from nested `<button>` inside `<a>` anti-patterns, missing dashboard routes (`/dashboard/schedule`, `/dashboard/programs`, `/dashboard/biometrics`, `/dashboard/settings`), non-interactive category cards, and missing anchor targets (`#corporate`, `#contact`).
+*   **Decision:**
+    1. Refactored `src/components/ui/Button.tsx` to handle `href` directly via `useRouter()` navigation and smooth anchor scrolling, eliminating invalid nested interactive HTML elements.
+    2. Implemented all missing authenticated sub-routes:
+       - `/dashboard/schedule`: Interactive date filter, discipline switcher, class reservation toggles, and live studio streaming modal.
+       - `/dashboard/programs`: Active journeys vs library tabs, progress indicators, class previews, and series enrollment.
+       - `/dashboard/biometrics`: Interactive 4-4-4-4 somatic box breathing pacer with dynamic pulsing animation, HRV tracking, and weekly practice chart.
+       - `/dashboard/settings`: Practitioner profile editor, notification preferences, and membership management with toast alerts.
+    3. Added `#corporate` and `#contact` sections to the homepage with interactive briefing and message submission modals.
+    4. Wired all Navbar, Hero, Category card, and Footer links to valid destinations.
+*   **Rationale:** Guarantees that every single clickable element on the platform provides instant visual and functional feedback with zero dead-ends or 404 errors.
+*   **Consequences:** Complete client-side and server-rendered route coverage across marketing and member spaces.
+

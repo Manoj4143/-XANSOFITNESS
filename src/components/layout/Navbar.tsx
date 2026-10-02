@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
-  { name: "Programs", href: "#programs" },
-  { name: "1:1 Training", href: "#training" },
-  { name: "Corporate", href: "#corporate" },
-  { name: "Contact", href: "#contact" },
+  { name: "Programs", href: "/#programs" },
+  { name: "1:1 Training", href: "/#training" },
+  { name: "Corporate", href: "/#corporate" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -47,23 +47,23 @@ export function Navbar() {
 
         {/* Right: Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Search"
+          <Link
+            href="/#programs"
+            aria-label="Search Programs"
             className="p-2 text-text-muted hover:text-text-main hover:bg-surfaceVariant/80 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
           >
             <Search className="w-4 h-4" />
-          </button>
+          </Link>
 
-          <button
-            type="button"
-            aria-label="Account"
+          <Link
+            href="/dashboard"
+            aria-label="Member Account"
             className="p-2 text-text-muted hover:text-text-main hover:bg-surfaceVariant/80 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
           >
             <User className="w-4 h-4" />
-          </button>
+          </Link>
 
-          <Button variant="primary" size="sm" className="ml-2">
+          <Button variant="primary" size="sm" href="/#pricing" className="ml-2">
             Start Free Trial
           </Button>
         </div>
@@ -74,7 +74,7 @@ export function Navbar() {
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="p-2 text-text-main hover:bg-surfaceVariant rounded-full transition-colors focus:outline-none"
+            className="p-2 text-text-main hover:bg-surfaceVariant rounded-full transition-colors focus:outline-none cursor-pointer"
           >
             {mobileMenuOpen ? (
               <X className="w-5 h-5" />
@@ -109,24 +109,27 @@ export function Navbar() {
 
               <div className="pt-4 border-t border-border flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
+                  <Link
+                    href="/#programs"
+                    onClick={() => setMobileMenuOpen(false)}
                     aria-label="Search"
                     className="p-2.5 text-text-muted hover:text-text-main rounded-full bg-surfaceVariant/70"
                   >
                     <Search className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
                     aria-label="Account"
                     className="p-2.5 text-text-muted hover:text-text-main rounded-full bg-surfaceVariant/70"
                   >
                     <User className="w-4 h-4" />
-                  </button>
+                  </Link>
                 </div>
                 <Button
                   variant="primary"
                   size="sm"
+                  href="/#pricing"
                   className="flex-1"
                   onClick={() => setMobileMenuOpen(false)}
                 >

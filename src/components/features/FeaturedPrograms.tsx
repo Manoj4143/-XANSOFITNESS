@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { motion, type Variants } from "framer-motion";
-import { Clock, Flame, Sparkles, ArrowRight, Play } from "lucide-react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { Clock, Flame, Sparkles, ArrowRight, Play, X, Video } from "lucide-react";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
 import { Button } from "@/components/ui/Button";
 
@@ -85,6 +85,8 @@ export function FeaturedPrograms({
 }: {
   programs?: ProgramItem[];
 }) {
+  const [selectedProgram, setSelectedProgram] = React.useState<ProgramItem | null>(null);
+
   return (
     <section className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
       {/* Header */}
@@ -106,10 +108,15 @@ export function FeaturedPrograms({
             </span>
           </h2>
         </div>
-        <p className="font-sans text-sm text-text-muted max-w-md">
-          Structured practices curated by lineage practitioners to harmonize breath,
-          fascial balance, and inner calm.
-        </p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <p className="font-sans text-sm text-text-muted max-w-md">
+            Structured practices curated by lineage practitioners to harmonize breath,
+            fascial balance, and inner calm.
+          </p>
+          <Button variant="secondary" size="sm" href="/dashboard/programs" className="whitespace-nowrap">
+            Browse All &rarr;
+          </Button>
+        </div>
       </motion.div>
 
       {/* Program Grid */}
@@ -121,7 +128,12 @@ export function FeaturedPrograms({
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
       >
         {programs.map((item) => (
-          <motion.div key={item.id} variants={fadeInUp}>
+          <motion.div
+            key={item.id}
+            variants={fadeInUp}
+            onClick={() => setSelectedProgram(item)}
+            className="cursor-pointer"
+          >
             <SurfaceCard
               hoverEffect
               className="p-0 overflow-hidden flex flex-col justify-between h-full group border border-border/80"
@@ -184,6 +196,72 @@ export function FeaturedPrograms({
           </motion.div>
         ))}
       </motion.div>
+
+      {/* Quick Class Preview Modal */}
+      <AnimatePresence>
+        {selectedProgram && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-text-main/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-lg bg-surface rounded-3xl overflow-hidden shadow-elevated border border-border p-6 space-y-6"
+            >
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary">
+                  {selectedProgram.level} • {selectedProgram.duration}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProgram(null)}
+                  className="w-8 h-8 rounded-full bg-surfaceVariant hover:bg-border text-text-main flex items-center justify-center cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div>
+                <h3 className="font-display text-2xl font-medium text-text-main">
+                  {selectedProgram.title}
+                </h3>
+                <p className="font-sans text-xs text-text-muted mt-1">
+                  Guided by {selectedProgram.instructor} • Focus: {selectedProgram.focus}
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-surfaceVariant space-y-2 text-xs font-sans text-text-muted">
+                <p>
+                  Immerse yourself in this curated sequence featuring breath synchronization,
+                  fascial decompression, and restorative alignment.
+                </p>
+                <div className="flex items-center gap-4 pt-1 text-text-main font-medium">
+                  <span>Intensity: {selectedProgram.intensity}</span>
+                  <span>Audio: 432 Hz Binaural</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="primary"
+                  size="md"
+                  href="/dashboard/programs"
+                  className="flex-1 justify-center"
+                >
+                  <Play className="w-4 h-4 mr-2 fill-current" />
+                  Begin Practice
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="md"
+                  onClick={() => setSelectedProgram(null)}
+                >
+                  Close
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

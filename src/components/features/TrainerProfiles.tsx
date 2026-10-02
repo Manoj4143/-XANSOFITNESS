@@ -170,7 +170,12 @@ export function TrainerProfiles({
 
               {/* Action Button */}
               <div className="pt-6 mt-6 border-t border-border/60">
-                <Button variant="ghost" size="sm" className="w-full justify-center">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  href="/dashboard"
+                  className="w-full justify-center"
+                >
                   View Profile &rarr;
                 </Button>
               </div>

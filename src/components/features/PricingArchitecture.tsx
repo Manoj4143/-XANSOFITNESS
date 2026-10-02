@@ -226,6 +226,7 @@ export function PricingArchitecture() {
                   <Button
                     variant={tier.highlighted ? "primary" : "secondary"}
                     size="lg"
+                    href="/dashboard"
                     className="w-full justify-center"
                   >
                     {tier.ctaText}

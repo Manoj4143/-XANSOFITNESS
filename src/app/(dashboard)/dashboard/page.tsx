@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Flame,
   Calendar,
   Sparkles,
   Play,
-  ArrowRight,
   Clock,
   Award,
   CheckCircle,
   Video,
+  X,
+  Volume2,
+  Users,
 } from "lucide-react";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
 import { Button } from "@/components/ui/Button";
@@ -47,8 +49,55 @@ const UPCOMING_CLASSES = [
 ];
 
 export default function DashboardPage() {
+  const [streak, setStreak] = React.useState(18);
+  const [sessionCompleted, setSessionCompleted] = React.useState(false);
+  const [activeStream, setActiveStream] = React.useState<{
+    title: string;
+    instructor: string;
+  } | null>(null);
+
+  const handleResumePractice = () => {
+    if (!sessionCompleted) {
+      setStreak((prev) => prev + 1);
+      setSessionCompleted(true);
+    }
+  };
+
   return (
-    <div className="space-y-8 font-sans">
+    <div className="space-y-8 font-sans relative">
+      {/* Toast Notification for Completed Practice */}
+      <AnimatePresence>
+        {sessionCompleted && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="p-4 rounded-2xl bg-primary text-white shadow-elevated flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="font-semibold text-sm">
+                  Practice Session Honored!
+                </div>
+                <div className="text-xs opacity-90">
+                  Your mindful streak has advanced to {streak} consecutive days.
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSessionCompleted(false)}
+              className="p-1 hover:bg-white/20 rounded-full transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Greeting & Morning Reflection */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -62,12 +111,21 @@ export default function DashboardPage() {
             </span>
           </h1>
           <p className="text-sm text-text-muted mt-1">
-            Day 18 of your conscious movement practice. Your breath rhythm is steady.
+            Day {streak} of your conscious movement practice. Your breath rhythm is steady.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="primary" size="md">
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() =>
+              setActiveStream({
+                title: "Live Studio Broadcast",
+                instructor: "Elena Rostova",
+              })
+            }
+          >
             <Video className="w-4 h-4 mr-1.5" />
             Enter Studio Stream
           </Button>
@@ -84,7 +142,7 @@ export default function DashboardPage() {
                 ACTIVE COMMITMENT
               </span>
               <span className="text-xs text-text-muted font-sans font-medium">
-                Week 3 of 4 &bull; 68% Complete
+                Week 3 of 4 &bull; {sessionCompleted ? "72%" : "68%"} Complete
               </span>
             </div>
 
@@ -103,12 +161,14 @@ export default function DashboardPage() {
               <div className="w-full h-2 rounded-full bg-surfaceVariant overflow-hidden">
                 <div
                   className="h-full bg-primary rounded-full transition-all duration-500"
-                  style={{ width: "68%" }}
+                  style={{ width: sessionCompleted ? "72%" : "68%" }}
                 />
               </div>
               <div className="flex justify-between text-xs text-text-muted">
-                <span>14 of 21 Practices Completed</span>
-                <span className="font-semibold text-primary">7 Sessions Remaining</span>
+                <span>{sessionCompleted ? "15" : "14"} of 21 Practices Completed</span>
+                <span className="font-semibold text-primary">
+                  {sessionCompleted ? "6" : "7"} Sessions Remaining
+                </span>
               </div>
             </div>
           </div>
@@ -120,9 +180,14 @@ export default function DashboardPage() {
                 Session 15: Thoracic Mobility & Heart Openers (20 Min)
               </span>
             </div>
-            <Button variant="primary" size="sm">
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleResumePractice}
+              disabled={sessionCompleted}
+            >
               <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
-              Resume Practice
+              {sessionCompleted ? "Completed Today ✓" : "Resume Practice"}
             </Button>
           </div>
         </SurfaceCard>
@@ -141,7 +206,7 @@ export default function DashboardPage() {
 
             <div className="text-center py-2">
               <div className="font-display text-5xl font-bold text-text-main">
-                18 <span className="text-xl text-primary font-sans font-medium">Days</span>
+                {streak} <span className="text-xl text-primary font-sans font-medium">Days</span>
               </div>
               <p className="text-xs text-text-muted mt-1">
                 Consecutive days on the sanctuary mat
@@ -166,7 +231,7 @@ export default function DashboardPage() {
                 <Award className="w-4 h-4 text-[#C97B1A]" />
               </div>
 
-              {/* 30-Day Streak Badge (In Progress) */}
+              {/* 30-Day Streak Badge */}
               <div className="p-3 rounded-xl bg-surfaceVariant/60 flex items-center justify-between border border-border/40">
                 <div className="flex items-center gap-2.5">
                   <div className="w-7 h-7 rounded-full bg-primary/15 text-primary flex items-center justify-center">
@@ -176,11 +241,13 @@ export default function DashboardPage() {
                     <div className="text-xs font-semibold text-text-main">
                       30-Day Lotus Master
                     </div>
-                    <div className="text-[10px] text-text-muted">12 days remaining</div>
+                    <div className="text-[10px] text-text-muted">
+                      {30 - streak} days remaining
+                    </div>
                   </div>
                 </div>
                 <span className="text-[10px] font-bold text-primary px-2 py-0.5 rounded-full bg-primary/10">
-                  60%
+                  {Math.round((streak / 30) * 100)}%
                 </span>
               </div>
             </div>
@@ -240,6 +307,12 @@ export default function DashboardPage() {
                 <Button
                   variant={cls.status === "Starting in 15m" ? "primary" : "secondary"}
                   size="sm"
+                  onClick={() =>
+                    setActiveStream({
+                      title: cls.title,
+                      instructor: cls.instructor,
+                    })
+                  }
                 >
                   Join Live Room
                 </Button>
@@ -248,6 +321,77 @@ export default function DashboardPage() {
           ))}
         </div>
       </div>
+
+      {/* Live Stream Simulation Modal */}
+      <AnimatePresence>
+        {activeStream && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-surface w-full max-w-2xl rounded-2xl shadow-elevated border border-border overflow-hidden"
+            >
+              <div className="p-4 bg-surfaceVariant/60 border-b border-border flex items-center justify-between">
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-text-main">
+                    {activeStream.title}
+                  </h3>
+                  <span className="text-xs text-primary font-medium">
+                    Live with {activeStream.instructor}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveStream(null)}
+                  className="p-1.5 rounded-full hover:bg-surface text-text-muted hover:text-text-main"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Video Player Canvas */}
+              <div className="aspect-video bg-neutral-900 text-white relative flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 text-primary animate-pulse">
+                  <Video className="w-8 h-8" />
+                </div>
+                <p className="font-display text-xl text-neutral-200">
+                  Connecting to Sanctuary Studio Feed...
+                </p>
+                <p className="text-xs text-neutral-400 mt-2 max-w-md">
+                  Audio & crystal video stream calibrated with HLS adaptive delivery.
+                </p>
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-neutral-300">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Live Studio (78 Participants)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Volume2 className="w-4 h-4 cursor-pointer" />
+                    <Users className="w-4 h-4 cursor-pointer" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 flex justify-end">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setActiveStream(null)}
+                >
+                  Leave Studio
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
