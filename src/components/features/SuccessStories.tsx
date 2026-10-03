@@ -16,58 +16,58 @@ export interface Testimonial {
   offsetClass?: string;
 }
 
-const TESTIMONIALS: Testimonial[] = [
+const INDIAN_TESTIMONIALS: Testimonial[] = [
   {
     id: "test-1",
     quote:
-      "Xanso completely transformed my relationship with movement. The absence of aggressive fitness metrics allowed me to finally listen to my breath. The 1:1 postural therapy with Elena relieved chronic lower back tension I had carried for years.",
-    author: "Sophia Aris",
-    role: "Architectural Designer",
-    location: "Stockholm",
-    practiceDuration: "Member for 14 months",
+      "Working 10+ hours a day in front of a laptop in Bengaluru gave me severe neck and lower back stiffness. Apeksha’s 15-minute desk posture resets and Neelam’s morning 7 AM Hatha batch completely dissolved the pain. The extra 10% discount and direct WhatsApp support made joining a breeze.",
+    author: "Aditi Narang",
+    role: "Senior Product Designer",
+    location: "Bengaluru, Karnataka",
+    practiceDuration: "Member for 8 months",
     rating: 5,
     offsetClass: "md:translate-y-0",
   },
   {
     id: "test-2",
     quote:
-      "The Yin and Sound Immersion sessions are an indispensable oasis after long screen-heavy days. The warmth and organic aesthetic of the platform feels like walking into an unhurried Kyoto retreat.",
-    author: "Marcus Chen",
-    role: "Software Fellow",
-    location: "San Francisco",
-    practiceDuration: "Member for 8 months",
+      "The 7-Day Face Yoga with Muskaan Wahi is phenomenal! My face feels sculptured and my morning puffiness is gone. Practicing live on Zoom from home with authentic Ayush-certified trainers is so much better than crowded gyms.",
+    author: "Pooja Hegde",
+    role: "Marketing Director",
+    location: "Mumbai, Maharashtra",
+    practiceDuration: "Member for 5 months",
     rating: 5,
     offsetClass: "md:translate-y-8",
   },
   {
     id: "test-3",
     quote:
-      "We instituted the 15-minute desk posture reset across our remote design team. The shift in afternoon energy, shoulder ease, and collective focus has been astonishing. True quiet luxury.",
-    author: "Amara Okonjo",
-    role: "VP of People, Studio Verve",
-    location: "London",
-    practiceDuration: "Corporate Sanctuary Lead",
+      "We enrolled our 40-member tech team for the corporate wellness program. The 15-min afternoon breathwork and desk stretch sessions have noticeably boosted team energy and reduced work burnout. Exceptional Indian instructors!",
+    author: "Vikram Malhotra",
+    role: "VP Engineering, Fintech",
+    location: "Gurugram, Delhi NCR",
+    practiceDuration: "Corporate Batch Lead",
     rating: 5,
     offsetClass: "md:-translate-y-4",
   },
   {
     id: "test-4",
     quote:
-      "I was skeptical of online yoga after practicing in Mysore for a decade. The lineage integrity, anatomical precision, and scholarly depth of the teachers on Xanso is unrivaled.",
-    author: "Kavita Ramaswamy",
-    role: "Physiotherapist & Writer",
-    location: "Bengaluru",
-    practiceDuration: "Member for 18 months",
+      "I was skeptical of online classes until I joined Neelam’s live Rishikesh batch. Her attention to detail and live audio posture cues feel just like an in-person yoga shala in Uttarakhand. Truly authentic and grounding.",
+    author: "Rohan Deshmukh",
+    role: "Architect & Yogi",
+    location: "Pune, Maharashtra",
+    practiceDuration: "Member for 12 months",
     rating: 5,
     offsetClass: "md:translate-y-4",
   },
   {
     id: "test-5",
     quote:
-      "The breathing pace and absence of aggressive loud soundtracks sets Xanso worlds apart from standard fitness apps. It feels deeply grounded, restorative, and profoundly respectful of the body.",
-    author: "Lukas Weber",
-    role: "Classical Cellist",
-    location: "Vienna",
+      "Arjun’s Akhada mobility drills cured my lingering knee and shoulder pain from years of bad gym lifting. Having direct WhatsApp access to the trainers on 91058 37321 for diet questions and schedule adjustments is unmatched service.",
+    author: "Siddharth Rao",
+    role: "Data Scientist",
+    location: "Hyderabad, Telangana",
     practiceDuration: "Member for 6 months",
     rating: 5,
     offsetClass: "md:translate-y-12",
@@ -75,11 +75,11 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: "test-6",
     quote:
-      "Every morning sequence feels like an intentional prayer for the spine and mind. The guidance on nervous system downregulation helped cure my insomnia.",
-    author: "Claire Delacroix",
-    role: "Creative Director",
-    location: "Paris",
-    practiceDuration: "Member for 11 months",
+      "The Pranayama and sound meditation sessions restored my sleep cycle after months of erratic work hours. The session cost is standard like Xanso but with an extra 10% off and free personalized Indian diet plan, it is the best wellness decision I made.",
+    author: "Meera Krishnan",
+    role: "Chartered Accountant",
+    location: "Chennai, Tamil Nadu",
+    practiceDuration: "Member for 9 months",
     rating: 5,
     offsetClass: "md:translate-y-2",
   },
@@ -95,7 +95,7 @@ const fadeInUp: Variants = {
 };
 
 export function SuccessStories({
-  stories = TESTIMONIALS,
+  stories = INDIAN_TESTIMONIALS,
 }: {
   stories?: Testimonial[];
 }) {
@@ -110,17 +110,16 @@ export function SuccessStories({
         className="text-center max-w-2xl mx-auto mb-16 space-y-4"
       >
         <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
-          SANCTUARY REFLECTIONS
+          INDIAN WELLNESS COMMUNITY STORIES
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main">
-          Stories of{" "}
+          Stories of Transformation &{" "}
           <span className="font-accent text-primary text-4xl sm:text-5xl md:text-6xl ml-1">
-            Restoration
+            Vitality
           </span>
         </h2>
         <p className="font-sans text-sm sm:text-base text-text-muted leading-relaxed">
-          Unfiltered notes from members cultivating daily stillness, spinal ease,
-          and holistic nervous system recovery.
+          Real feedback from practitioners across India cultivating daily spinal ease, stress relief, and holistic energy.
         </p>
       </motion.div>
 
@@ -177,8 +176,8 @@ export function SuccessStories({
                 </div>
 
                 <div
-                  className="flex items-center gap-1 text-[11px] font-sans font-medium text-primary px-2.5 py-1 rounded-full bg-primary/10 flex-shrink-0"
-                  title="Verified Mindful Member"
+                  className="flex items-center gap-1 text-[11px] font-sans font-medium text-emerald-700 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 flex-shrink-0"
+                  title="Verified Member"
                 >
                   <CheckCircle className="w-3 h-3 stroke-[2.5]" />
                   <span className="hidden sm:inline">Verified</span>

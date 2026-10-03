@@ -2,48 +2,48 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const FOOTER_COLUMNS = [
   {
-    title: "Sanctuary",
+    title: "Indian Practices",
     links: [
-      { name: "Vinyasa Flow", href: "/#programs" },
-      { name: "Yin & Restorative", href: "/#programs" },
-      { name: "Ashtanga Method", href: "/#programs" },
-      { name: "Pranayama & Breath", href: "/dashboard/biometrics" },
-      { name: "Sound Meditation", href: "/dashboard/programs" },
+      { name: "Rishikesh Hatha Yoga", href: "/#programs" },
+      { name: "7-Day Face Yoga", href: "/#programs" },
+      { name: "Desk Posture Therapy", href: "/#programs" },
+      { name: "Pranayama & Dhyana", href: "/#programs" },
+      { name: "Akhada Mobility", href: "/#programs" },
     ],
   },
   {
-    title: "Journeys",
+    title: "Memberships & Batches",
     links: [
-      { name: "Group Practices", href: "/dashboard/schedule" },
-      { name: "1:1 Guided Mentorship", href: "/#training" },
-      { name: "Corporate Wellness", href: "/#corporate" },
-      { name: "Weekend Immersions", href: "/#pricing" },
-      { name: "Teacher Collective", href: "/#training" },
+      { name: "2 Months Plan (₹1,799)", href: "/#pricing" },
+      { name: "3 Months Popular (₹2,609)", href: "/#pricing" },
+      { name: "6 Months Immersion (₹4,409)", href: "/#pricing" },
+      { name: "1:1 Personal Transformation", href: "/#pricing" },
+      { name: "Corporate Wellness Batches", href: "/#corporate" },
     ],
   },
   {
-    title: "Philosophy",
+    title: "Ayush Certified Trainers",
     links: [
-      { name: "The Sanctuary Way", href: "/#programs" },
-      { name: "Our Guides", href: "/#training" },
-      { name: "Mindful Architecture", href: "/#programs" },
-      { name: "Research & Science", href: "/dashboard/biometrics" },
-      { name: "Sustainability", href: "/#programs" },
+      { name: "Neelam Rana (Rishikesh)", href: "/#training" },
+      { name: "Muskaan Wahi (Face Yoga)", href: "/#training" },
+      { name: "Apeksha Chauhan (Posture)", href: "/#training" },
+      { name: "Navya Gupta (Champion)", href: "/#training" },
+      { name: "Arjun Rathore (Strength)", href: "/#training" },
     ],
   },
   {
-    title: "Support",
+    title: "Quick Support",
     links: [
-      { name: "Member Portal", href: "/dashboard" },
-      { name: "Schedule & Booking", href: "/dashboard/schedule" },
-      { name: "My Programs", href: "/dashboard/programs" },
-      { name: "Membership Tiers", href: "/#pricing" },
-      { name: "Contact Sanctuary", href: "/#contact" },
+      { name: "WhatsApp (+91 91058 37321)", href: "https://wa.me/919105837321" },
+      { name: "Claim 10% Extra Discount", href: "/#pricing" },
+      { name: "Free Customized Diet Plan", href: "/#pricing" },
+      { name: "Schedule & Timings (IST)", href: "/#programs" },
+      { name: "Contact Team", href: "/#contact" },
     ],
   },
 ];
@@ -51,6 +51,7 @@ const FOOTER_COLUMNS = [
 export function Footer() {
   const [email, setEmail] = React.useState("");
   const [subscribed, setSubscribed] = React.useState(false);
+  const WHATSAPP_NUMBER = "919105837321";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,36 +66,66 @@ export function Footer() {
         {/* Top Section: Brand & Newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-border">
           <div className="lg:col-span-5 space-y-4">
-            <span className="font-display text-2xl md:text-3xl font-semibold tracking-tight">
-              Xanso<span className="text-primary font-serif">.</span>
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-display text-2xl md:text-3xl font-semibold tracking-tight">
+                Xanso<span className="text-primary font-serif">.</span>
+              </span>
+              <span className="text-[10px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                India
+              </span>
+            </div>
+
             <p className="font-sans text-xs sm:text-sm text-text-muted max-w-sm leading-relaxed">
-              A serene digital sanctuary for lineage-based yoga, pranayama,
-              restorative stillness, and somatic consciousness.
+              India's premier digital fitness & wellness platform. Authentic Rishikesh yoga lineages, Ayush-certified instructors, daily live Zoom batches, and customized nutrition.
             </p>
-            <div className="flex items-center gap-3 text-xs text-text-muted">
-              <span>Kyoto</span>
+
+            {/* Direct WhatsApp Callout */}
+            <div className="pt-2">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                  "Hi Xanso! I have a question about batches and membership discount."
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-soft transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>WhatsApp: +91 91058 37321</span>
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted pt-1">
+              <span>Rishikesh</span>
               <span>•</span>
-              <span>London</span>
+              <span>Bengaluru</span>
               <span>•</span>
-              <span>Ubud</span>
+              <span>Mumbai</span>
               <span>•</span>
-              <span>Big Sur</span>
+              <span>Delhi NCR</span>
+              <span>•</span>
+              <span>Pune</span>
+              <span>•</span>
+              <span>Hyderabad</span>
             </div>
           </div>
 
           <div className="lg:col-span-7 flex flex-col justify-center">
             <div className="bg-surface rounded-2xl p-6 sm:p-8 border border-border shadow-soft">
-              <h4 className="font-display text-lg md:text-xl font-medium text-text-main mb-2">
-                Join the Morning Reflection
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs uppercase font-bold tracking-widest text-primary">
+                  COMMUNITY UPDATES
+                </span>
+              </div>
+              <h4 className="font-display text-lg md:text-xl font-medium text-text-main mb-1">
+                Receive Free Weekly Indian Diet & Asana Tips
               </h4>
               <p className="text-xs sm:text-sm text-text-muted mb-4 font-sans">
-                Receive weekly mindful sequences, breathwork guides, and retreat invites.
+                Curated Sattvic recipes, posture routines, and early batch notifications straight to your inbox.
               </p>
               {subscribed ? (
                 <div className="flex items-center gap-2 p-3 rounded-full bg-emerald-50 text-emerald-800 text-xs sm:text-sm font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Thank you for joining our sanctuary reflection circle! Check your inbox soon.</span>
+                  <span>Dhanyavaad! Welcome to our wellness family. Check your inbox soon.</span>
                 </div>
               ) : (
                 <form
@@ -110,7 +141,7 @@ export function Footer() {
                     required
                   />
                   <Button variant="primary" size="md" type="submit">
-                    Subscribe
+                    Join Circle
                   </Button>
                 </form>
               )}
@@ -144,17 +175,22 @@ export function Footer() {
 
         {/* Bottom Section: Legal & Copyright */}
         <div className="pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted font-sans">
-          <p>© {new Date().getFullYear()} Xanso Sanctuary Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Xanso Fitness & Wellness India. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/#contact" className="hover:text-text-main transition-colors">
-              Privacy Philosophy
+              Privacy Policy
             </Link>
             <Link href="/#contact" className="hover:text-text-main transition-colors">
-              Terms of Stillness
+              Terms of Practice
             </Link>
-            <Link href="/#contact" className="hover:text-text-main transition-colors">
-              Cookie Preferences
-            </Link>
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-700 font-semibold hover:underline"
+            >
+              WhatsApp Support: +91 91058 37321
+            </a>
           </div>
         </div>
       </div>

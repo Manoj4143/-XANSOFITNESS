@@ -24,6 +24,9 @@ import {
   Send,
   X,
   Volume2,
+  MessageCircle,
+  Tag,
+  Percent,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -34,6 +37,7 @@ import { TrainerProfiles } from "@/components/features/TrainerProfiles";
 import { PricingArchitecture } from "@/components/features/PricingArchitecture";
 import { SuccessStories } from "@/components/features/SuccessStories";
 import { WellnessConcierge } from "@/components/ai/WellnessConcierge";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { playSanctuaryChime } from "@/lib/sound";
 
 const fadeInUp: Variants = {
@@ -62,62 +66,62 @@ const STATS_DATA = [
   {
     icon: Video,
     number: "500+",
-    label: "On-Demand Sessions",
-    description: "Multi-discipline practices across all skill horizons",
+    label: "Live & On-Demand Sessions",
+    description: "Daily interactive Zoom classes with real-time posture corrections",
   },
   {
     icon: Sliders,
     number: "100%",
-    label: "Personalized Paths",
-    description: "Adaptive progressions matched to your somatic rhythm",
+    label: "Ayush Certified Trainers",
+    description: "Lineage masters from Rishikesh & Ministry of Ayush certified",
   },
   {
     icon: Clock,
-    number: "15-90",
-    label: "Minute Practices",
-    description: "Tailored to complement and honor your daily routine",
+    number: "6 Batches",
+    label: "Daily Morning & Evening IST",
+    description: "6:00 AM, 7:00 AM, 8:00 AM & 5:30 PM, 6:30 PM, 7:30 PM",
   },
   {
     icon: ShieldCheck,
-    number: "Top 1%",
-    label: "Vetted Instructors",
-    description: "Certified lineage masters and anatomical specialists",
+    number: "10% Extra",
+    label: "Discount vs Xanso Standard",
+    description: "Exclusive community pricing on all 2, 3 & 6 month memberships",
   },
 ];
 
 const CATEGORY_ITEMS = [
   {
-    title: "Vinyasa Flow",
+    title: "Rishikesh Hatha Flow",
     level: "All Levels",
-    description: "Fluid, breath-synchronized movement to cultivate heat and mobility.",
-    duration: "20-60 min",
+    description: "Fluid, breath-synchronized classical postures to cultivate heat, mobility, and spinal strength.",
+    duration: "45-60 min",
     icon: Flame,
     accent: "from-[#F6EDE8] to-[#ECD8CF]",
     badgeColor: "bg-surface/90 text-primary",
   },
   {
-    title: "Yin & Restorative",
-    level: "Beginner to Intermediate",
-    description: "Passive, prolonged postures targeting deep connective fascia and nervous regulation.",
-    duration: "45-75 min",
+    title: "7-Day Face Yoga",
+    level: "Special Bonus",
+    description: "Ayush certified facial muscle sculpting, lymphatic drainage, and natural skin rejuvenation.",
+    duration: "20-25 min",
     icon: Heart,
     accent: "from-[#EFECE8] to-[#E3DCD3]",
     badgeColor: "bg-surface/90 text-[#605B54]",
   },
   {
-    title: "Pranayama & Breath",
-    level: "Foundational",
-    description: "Ancient breathwork technologies designed to balance the vagus nerve and clarify consciousness.",
-    duration: "10-30 min",
+    title: "IT Desk Posture & Spine",
+    level: "Ergonomics / WFH",
+    description: "Targeted decompression for cervical spine, shoulders, and lower back strained by laptop work.",
+    duration: "15-25 min",
     icon: Wind,
     accent: "from-[#F8EDE6] to-[#EAD5C8]",
     badgeColor: "bg-surface/90 text-primary",
   },
   {
-    title: "Sound & Meditation",
-    level: "All Practitioners",
-    description: "Sacred acoustic frequencies and guided stillness for deep mental decompression.",
-    duration: "15-45 min",
+    title: "Pranayama & Dhyana",
+    level: "Mindfulness",
+    description: "Ancient breathwork (Kapalbhati, Anulom Vilom) and acoustic meditation for deep stress relief.",
+    duration: "20-30 min",
     icon: Sparkles,
     accent: "from-[#F3ECE4] to-[#E7DDD0]",
     badgeColor: "bg-surface/90 text-[#7C6E5F]",
@@ -129,6 +133,11 @@ export default function HomePage() {
   const [contactSubmitted, setContactSubmitted] = React.useState(false);
   const [corporateSubmitted, setCorporateSubmitted] = React.useState(false);
   const [chimeActive, setChimeActive] = React.useState(false);
+
+  const WHATSAPP_NUMBER = "919105837321";
+  const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hi Xanso Fitness! I want to claim the extra 10% discount on your yoga & fitness plans."
+  )}`;
 
   const handlePlayChime = () => {
     playSanctuaryChime();
@@ -145,7 +154,7 @@ export default function HomePage() {
         {/* ========================================================
             1. HERO SECTION (Split Layout)
         ======================================================== */}
-        <section className="relative pt-12 md:pt-20 pb-20 md:pb-32 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto overflow-hidden">
+        <section className="relative pt-10 md:pt-16 pb-20 md:pb-32 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Column: Typography & CTAs */}
             <motion.div
@@ -154,9 +163,12 @@ export default function HomePage() {
               variants={staggerContainer}
               className="md:col-span-6 lg:col-span-7 space-y-6 md:space-y-8 z-10"
             >
-              <motion.div variants={fadeInUp} className="inline-block">
-                <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-                  YOUR SANCTUARY AWAITS
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2">
+                <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-emerald-800 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  NAMASTE &bull; AUTHENTIC INDIAN WELLNESS
+                </span>
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                  Extra 10% OFF
                 </span>
               </motion.div>
 
@@ -174,9 +186,7 @@ export default function HomePage() {
                 variants={fadeInUp}
                 className="font-sans text-base sm:text-lg md:text-xl text-text-muted max-w-lg leading-relaxed"
               >
-                Expert-led yoga, meditation, and mindful movement designed for
-                your daily life. Step into an intentional space of physical
-                restoration and inner stillness.
+                Live interactive Zoom yoga, signature 7-day Face Yoga, and posture therapy led by Ministry of Ayush certified Indian trainers. Free personalized Indian diet plans and direct WhatsApp support.
               </motion.p>
 
               <motion.div
@@ -184,12 +194,19 @@ export default function HomePage() {
                 className="flex flex-wrap items-center gap-4 pt-2"
               >
                 <Button variant="primary" size="lg" href="#pricing">
-                  Start Free Trial
+                  Claim 10% Extra Discount
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Button>
-                <Button variant="secondary" size="lg" href="#programs">
-                  Explore Classes
-                </Button>
+
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-sm font-semibold shadow-soft transition-all"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>WhatsApp: +91 91058 37321</span>
+                </a>
               </motion.div>
 
               {/* Interactive Solfeggio 432 Hz Sound Bell */}
@@ -202,7 +219,7 @@ export default function HomePage() {
                   <div className="w-6 h-6 rounded-full bg-primary/15 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Volume2 className={`w-3.5 h-3.5 ${chimeActive ? "animate-pulse text-primary" : ""}`} />
                   </div>
-                  <span>{chimeActive ? "Resonating Solfeggio (432 Hz)..." : "Play 432 Hz Sanctuary Chime"}</span>
+                  <span>{chimeActive ? "Resonating Himalayan Chime (432 Hz)..." : "Play 432 Hz Himalayan Chime"}</span>
                   <div className="flex items-center gap-0.5 h-3">
                     <span className={`w-0.5 bg-primary rounded-full transition-all duration-300 ${chimeActive ? "h-3 animate-pulse" : "h-1.5"}`} />
                     <span className={`w-0.5 bg-primary rounded-full transition-all duration-300 ${chimeActive ? "h-4 animate-pulse delay-75" : "h-2"}`} />
@@ -212,33 +229,33 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
-            {/* Right Column: Visual Composition with Editorial Photography & Ambient Breathing Halo */}
+            {/* Right Column: Editorial Indian Wellness Photography */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="md:col-span-6 lg:col-span-5 relative flex items-center justify-center min-h-[380px] sm:min-h-[460px]"
             >
-              {/* Pulsing Warm Terracotta Ambient Glow */}
+              {/* Pulsing Warm Terracotta Glow */}
               <motion.div
                 animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.45, 0.25] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-primary/30 to-amber-500/20 blur-3xl pointer-events-none"
               />
 
-              {/* Organic Canvas Base with Editorial Photography */}
+              {/* Organic Canvas Base with Real Indian Yoga Photography */}
               <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#ECD8CF] via-[#F4E9E2] to-[#FAF6F3] p-1.5 shadow-elevated flex items-center justify-center group overflow-hidden">
                 <div className="w-full h-full rounded-full bg-surface border-4 border-surface shadow-inner overflow-hidden relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/hero-yoga.jpg"
-                    alt="Sanctuary Meditation Practice"
+                    alt="Indian Yoga Practice"
                     className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
                   />
                   {/* Subtle bottom gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
 
-                  {/* Overlaid Sanctuary Tag */}
+                  {/* Overlaid Tag */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center pointer-events-none whitespace-nowrap">
                     <span className="font-accent text-2xl sm:text-3xl text-white drop-shadow-md">
                       Peace in Motion
@@ -247,28 +264,28 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Floating Stat Card: Active Members (Infinite Gentle Float) */}
+              {/* Floating Stat Card: Active Practitioners */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-4 -left-2 sm:left-4 z-20"
               >
                 <SurfaceCard hoverEffect className="p-4 flex items-center gap-3 shadow-card border border-border/60">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-                    <Heart className="w-5 h-5 fill-primary/20" />
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <Heart className="w-5 h-5 fill-emerald-500/20" />
                   </div>
                   <div>
                     <p className="font-display text-lg font-bold text-text-main leading-none">
-                      10,000+
+                      15,000+
                     </p>
                     <p className="font-sans text-xs text-text-muted mt-0.5">
-                      Mindful Practitioners
+                      Practicing across India
                     </p>
                   </div>
                 </SurfaceCard>
               </motion.div>
 
-              {/* Floating Stat Card: Rating (Infinite Gentle Float) */}
+              {/* Floating Stat Card: Rating */}
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -281,14 +298,14 @@ export default function HomePage() {
                   <div>
                     <div className="flex items-center gap-1">
                       <span className="font-display text-lg font-bold text-text-main leading-none">
-                        4.9
+                        4.98
                       </span>
                       <span className="text-xs text-amber-600 font-sans font-bold">
                         ★
                       </span>
                     </div>
                     <p className="font-sans text-xs text-text-muted mt-0.5">
-                      Sanctuary Rating
+                      Ayush Certified Care
                     </p>
                   </div>
                 </SurfaceCard>
@@ -343,18 +360,17 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
               <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
-                DISCOVER YOUR PRACTICE
+                TIME-HONORED DISCIPLINES
               </span>
               <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main mt-1">
-                Explore{" "}
+                Explore Indian{" "}
                 <span className="font-accent text-primary text-4xl sm:text-5xl md:text-6xl ml-1">
-                  Disciplines
+                  Practices
                 </span>
               </h2>
             </div>
             <p className="font-sans text-sm text-text-muted max-w-md">
-              From invigorating solar flows to restorative lunar stillness,
-              discover sequences tuned to where your body is today.
+              From solar Hatha flows and 7-day Face Yoga to deep Pranayama and desk posture correction.
             </p>
           </div>
 
@@ -370,7 +386,7 @@ export default function HomePage() {
               return (
                 <Link
                   key={item.title}
-                  href="/dashboard/programs"
+                  href="#pricing"
                   className="group block"
                 >
                   <motion.div
@@ -379,7 +395,7 @@ export default function HomePage() {
                   >
                     {/* Top: Artistic Gradient Canvas & Pose Badge */}
                     <div
-                      className={`h-52 w-full bg-gradient-to-br ${item.accent} p-6 flex flex-col justify-between relative overflow-hidden`}
+                      className={`h-48 w-full bg-gradient-to-br ${item.accent} p-6 flex flex-col justify-between relative overflow-hidden`}
                     >
                       <div className="flex items-center justify-between z-10">
                         <span
@@ -387,7 +403,6 @@ export default function HomePage() {
                         >
                           {item.level}
                         </span>
-                        {/* Floating Circular Action Arrow */}
                         <div
                           aria-label={`Explore ${item.title}`}
                           className="w-9 h-9 rounded-full bg-surface text-text-main flex items-center justify-center shadow-soft group-hover:bg-primary group-hover:text-white transition-colors duration-200"
@@ -416,7 +431,7 @@ export default function HomePage() {
 
                       <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs text-text-muted font-sans">
                         <span>{item.duration}</span>
-                        <span className="font-medium text-primary">Explore &rarr;</span>
+                        <span className="font-medium text-primary">View Batches &rarr;</span>
                       </div>
                     </div>
                   </motion.div>
@@ -439,7 +454,7 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            6. PROMO SECTION (bg-surfaceVariant with circular visual)
+            6. PROMO SECTION (10% Extra Discount on Xanso Rates)
         ======================================================== */}
         <section className="py-16 md:py-24 px-4 sm:px-6 md:px-8 bg-surfaceVariant border-y border-border/80">
           <div className="max-w-7xl mx-auto">
@@ -455,32 +470,42 @@ export default function HomePage() {
                 variants={fadeInUp}
                 className="md:col-span-7 space-y-6"
               >
-                <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
-                  COMMENCE YOUR SANCTUARY
-                </span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-sans font-bold uppercase tracking-wider">
+                  <Percent className="w-3.5 h-3.5" />
+                  <span>Extra 10% Off Standard Rates</span>
+                </div>
 
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main leading-tight">
-                  Start Your Journey. <br />
-                  <span className="font-display font-medium text-primary">
-                    Up to 50% Off
+                  Same Session Cost as Xanso. <br />
+                  <span className="font-display font-medium text-emerald-700">
+                    Plus 10% Extra Discount
                   </span>{" "}
-                  Annual Plans.
+                  for You.
                 </h2>
 
                 <p className="font-sans text-sm sm:text-base text-text-muted max-w-lg leading-relaxed">
-                  Unlock unlimited daily live streams, personalized yoga journeys,
-                  breathwork masterclasses, and dedicated wellness concierge guidance.
+                  Join our live morning and evening Zoom batches with certified Rishikesh yoga teachers. Every membership includes the free 7-Day Face Yoga bonus and a customized Indian nutrition plan.
                 </p>
 
-                <div className="pt-2">
-                  <Button variant="dark" size="lg" href="#pricing">
-                    Claim 50% Off Annual Sanctuary
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Button variant="primary" size="lg" href="#pricing">
+                    Claim 10% Extra Off Now
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
+
+                  <a
+                    href={waUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-sm font-semibold shadow-soft transition-all"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <span>WhatsApp: +91 91058 37321</span>
+                  </a>
                 </div>
               </motion.div>
 
-              {/* Right Column: Large Circular Artwork with Real Meditation Sound Image */}
+              {/* Right Column: Indian Yoga Art / Meditation Visual */}
               <motion.div
                 variants={fadeInUp}
                 className="md:col-span-5 flex items-center justify-center relative"
@@ -488,28 +513,28 @@ export default function HomePage() {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-surface border-4 border-surface shadow-elevated flex items-center justify-center overflow-hidden group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/program-meditation.jpg"
-                    alt="Tibetan Singing Bowls"
+                    src="/images/trainer-neelam.jpg"
+                    alt="Master Neelam Rana"
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Floating Circular Badge: "Limited Offer" */}
+                {/* Floating Circular Badge: "Extra 10% Off" */}
                 <motion.div
                   whileHover={{ rotate: 8, scale: 1.05 }}
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-3 right-4 sm:right-8 w-24 h-24 rounded-full bg-primary text-white flex flex-col items-center justify-center text-center p-2 shadow-card"
+                  className="absolute -top-3 right-4 sm:right-8 w-24 h-24 rounded-full bg-emerald-600 text-white flex flex-col items-center justify-center text-center p-2 shadow-card"
                 >
                   <span className="text-[10px] font-sans uppercase font-bold tracking-widest leading-none">
-                    Limited
+                    Special
                   </span>
                   <span className="font-display text-lg font-bold leading-tight">
-                    Offer
+                    10% Off
                   </span>
                   <span className="text-[9px] opacity-90 font-sans">
-                    50% Off
+                    All Plans
                   </span>
                 </motion.div>
               </motion.div>
@@ -518,39 +543,39 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            7. PRICING ARCHITECTURE (3-Tier with Switch)
+            7. PRICING ARCHITECTURE (INR & 10% Discount)
         ======================================================== */}
         <PricingArchitecture />
 
         {/* ========================================================
-            8. CORPORATE SANCTUARY (Enterprise Well-Being)
+            8. CORPORATE SANCTUARY (Indian Workspaces & IT Teams)
         ======================================================== */}
         <section id="corporate" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
           <div className="bg-surface rounded-3xl p-8 sm:p-12 md:p-16 border border-border shadow-elevated">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
-                  ORGANIZATIONAL RESILIENCE
+                  WORKPLACE VITALITY & ERGONOMICS
                 </span>
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main">
-                  Corporate Sanctuary & Executive Somatics
+                  Corporate Wellness for Indian Teams
                 </h2>
                 <p className="font-sans text-sm sm:text-base text-text-muted leading-relaxed max-w-xl">
-                  Elevate team focus, eliminate postural fatigue, and cultivate collective mental clarity with custom corporate subscriptions, live private streams, and executive retreats.
+                  Eliminate IT postural fatigue, reduce screen strain, and revitalize employee focus with live 15-minute desk yoga, guided breath breaks, and dedicated corporate Zoom batches.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   <div className="p-4 rounded-2xl bg-surfaceVariant">
                     <span className="font-display text-xl font-bold text-text-main block">15-Min</span>
-                    <span className="text-xs font-sans text-text-muted">Desk Posture Resets</span>
+                    <span className="text-xs font-sans text-text-muted">IT Desk Resets</span>
                   </div>
                   <div className="p-4 rounded-2xl bg-surfaceVariant">
                     <span className="font-display text-xl font-bold text-text-main block">100%</span>
-                    <span className="text-xs font-sans text-text-muted">Dedicated Guide</span>
+                    <span className="text-xs font-sans text-text-muted">Ayush Certified</span>
                   </div>
                   <div className="p-4 rounded-2xl bg-surfaceVariant">
                     <span className="font-display text-xl font-bold text-text-main block">Custom</span>
-                    <span className="text-xs font-sans text-text-muted">HRV Analytics</span>
+                    <span className="text-xs font-sans text-text-muted">Batch Timings</span>
                   </div>
                 </div>
 
@@ -561,41 +586,49 @@ export default function HomePage() {
                     onClick={() => setCorporateModalOpen(true)}
                   >
                     <Building2 className="w-4 h-4 mr-2" />
-                    Inquire for Team Sanctuary
+                    Inquire for Corporate Plan
                   </Button>
-                  <Button variant="secondary" size="lg" href="#contact">
-                    Speak with Concierge
-                  </Button>
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                      "Hi! We are looking for corporate wellness sessions for our organization."
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-sm font-semibold shadow-soft transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <span>WhatsApp Us: +91 91058 37321</span>
+                  </a>
                 </div>
               </div>
 
               <div className="lg:col-span-5 p-8 rounded-3xl bg-surfaceVariant border border-border flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <span className="text-xs font-bold uppercase tracking-wider text-text-muted">
-                    TRUSTED BY MINDFUL TEAMS
+                    TRUSTED BY INDIAN ENTERPRISES
                   </span>
                   <div className="space-y-3 font-sans text-sm text-text-main">
                     <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>Executive breath pacing before quarterly reviews</span>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>Live 15-min afternoon desk stretch sessions</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>Private live broadcasts scheduled to your time zones</span>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>Tailored to Bengaluru, Gurugram & Mumbai work schedules</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>Team engagement portal & streak leaderboards</span>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>Free Indian diet & posture guides for all team members</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-border/80">
                   <p className="font-serif italic text-text-muted text-xs sm:text-sm">
-                    "Xanso transformed our design team's posture and afternoon focus. The 15-minute desk resets are non-negotiable now."
+                    "Our tech engineers in Bengaluru look forward to the 1:15 PM desk posture breaks. Back pain complaints dropped significantly in 4 weeks."
                   </p>
                   <span className="font-sans text-xs font-semibold text-text-main block mt-2">
-                    — Creative Director, Studio Monolith
+                    — HR Director, SaaS Unicorn (Gurugram)
                   </span>
                 </div>
               </div>
@@ -614,8 +647,8 @@ export default function HomePage() {
                 className="w-full max-w-lg bg-surface rounded-3xl overflow-hidden shadow-elevated border border-border p-6 sm:p-8 space-y-6"
               >
                 <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary">
-                    Corporate Briefing
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                    Corporate Wellness Briefing
                   </span>
                   <button
                     type="button"
@@ -636,7 +669,7 @@ export default function HomePage() {
                       Inquiry Received
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-text-muted max-w-xs mx-auto">
-                      Our Executive Wellness Director will contact you within 24 hours with custom corporate options.
+                      Our Corporate Wellness Lead will contact you on WhatsApp / Email within 24 hours.
                     </p>
                     <Button
                       variant="primary"
@@ -662,7 +695,7 @@ export default function HomePage() {
                         Bring Xanso to Your Company
                       </h3>
                       <p className="text-text-muted mt-1 text-xs">
-                        Custom plans starting from 10 team members.
+                        Custom plans starting from 10 team members with extra 10% corporate discount.
                       </p>
                     </div>
 
@@ -673,7 +706,7 @@ export default function HomePage() {
                       <input
                         type="email"
                         required
-                        placeholder="you@company.com"
+                        placeholder="you@company.in"
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
                       />
                     </div>
@@ -686,7 +719,7 @@ export default function HomePage() {
                         <input
                           type="text"
                           required
-                          placeholder="Acme Corp"
+                          placeholder="Your Company"
                           className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
                         />
                       </div>
@@ -713,46 +746,68 @@ export default function HomePage() {
         </AnimatePresence>
 
         {/* ========================================================
-            9. SUCCESS STORIES (Organic Offset Masonry Grid)
+            9. SUCCESS STORIES (Indian Practitioners)
         ======================================================== */}
         <SuccessStories />
 
         {/* ========================================================
-            10. CONTACT SANCTUARY SECTION
+            10. CONTACT SECTION (Prominent WhatsApp)
         ======================================================== */}
         <section id="contact" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Left: Sanctuary Details */}
+            {/* Left: Contact Details */}
             <div className="lg:col-span-5 space-y-6">
               <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
-                LET US GUIDE YOU
+                WE ARE HERE TO HELP
               </span>
               <h2 className="font-display text-3xl sm:text-4xl font-normal text-text-main">
-                Connect with the Sanctuary
+                Connect with Us Directly
               </h2>
               <p className="font-sans text-xs sm:text-sm text-text-muted leading-relaxed">
-                Whether you have questions regarding our teacher lineage, subscription billing,
-                or 1:1 guided mentorship, our concierge is here to assist.
+                Have questions about batch timings, trainer credentials, diet plans, or claiming your 10% extra discount? Reach out to us directly on WhatsApp or submit a quick note.
               </p>
 
               <div className="space-y-4 pt-4 font-sans text-xs sm:text-sm">
-                <div className="flex items-center gap-3">
+                {/* Highlighted WhatsApp Card */}
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors group"
+                >
+                  <div className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-soft group-hover:scale-105 transition-transform">
+                    <MessageCircle className="w-5 h-5 fill-current" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-emerald-900 block text-sm">
+                      WhatsApp Quick Support (Mine Only)
+                    </span>
+                    <span className="text-emerald-700 font-semibold text-sm">
+                      +91 91058 37321
+                    </span>
+                    <span className="text-[11px] text-emerald-600 block mt-0.5">
+                      Instant response &bull; 10% discount claim
+                    </span>
+                  </div>
+                </a>
+
+                <div className="flex items-center gap-3 p-2">
                   <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-medium text-text-main block">Email Sanctuary Concierge</span>
-                    <span className="text-text-muted">concierge@xanso.com</span>
+                    <span className="font-medium text-text-main block">Email Support</span>
+                    <span className="text-text-muted">contact@xanso.in</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 p-2">
                   <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-medium text-text-main block">Physical Studios & Tea Houses</span>
-                    <span className="text-text-muted">Kyoto (Higashiyama) • London (Mayfair)</span>
+                    <span className="font-medium text-text-main block">Lineage Roots & Hubs</span>
+                    <span className="text-text-muted">Rishikesh (Uttarakhand) • Bengaluru • Mumbai • Delhi NCR</span>
                   </div>
                 </div>
               </div>
@@ -764,10 +819,10 @@ export default function HomePage() {
                 <div className="text-center py-12 space-y-3">
                   <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
                   <h3 className="font-display text-2xl font-medium text-text-main">
-                    Message Received
+                    Message Received!
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-text-muted max-w-sm mx-auto">
-                    Thank you for reaching out. A dedicated concierge guide will review your inquiry and reply within 24 hours.
+                    Thank you for reaching out. We will connect with you on WhatsApp (+91 91058 37321) or email within 24 hours.
                   </p>
                   <Button
                     variant="secondary"
@@ -794,18 +849,18 @@ export default function HomePage() {
                       <input
                         type="text"
                         required
-                        placeholder="Elena"
+                        placeholder="Rohan / Priya"
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
-                        Email Address
+                        Phone / WhatsApp Number
                       </label>
                       <input
-                        type="email"
+                        type="tel"
                         required
-                        placeholder="elena@sanctuary.com"
+                        placeholder="+91 98765 43210"
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
                       />
                     </div>
@@ -816,10 +871,11 @@ export default function HomePage() {
                       Inquiry Focus
                     </label>
                     <select className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30">
-                      <option>Membership & Billing Inquiries</option>
-                      <option>1:1 Guided Mentorship</option>
-                      <option>Corporate Sanctuary Program</option>
-                      <option>Teacher Training & Retreats</option>
+                      <option>Claim 10% Extra Discount on 2/3/6 Month Plan</option>
+                      <option>1:1 Personal Yoga & Strength Training</option>
+                      <option>7-Day Face Yoga Masterclass</option>
+                      <option>Desk Posture & Spine Relief for IT Professionals</option>
+                      <option>Corporate Team Wellness Batches</option>
                     </select>
                   </div>
 
@@ -830,14 +886,14 @@ export default function HomePage() {
                     <textarea
                       rows={4}
                       required
-                      placeholder="Share your goals or questions with us..."
+                      placeholder="Tell us about your fitness goals, preferred batch timings (Morning/Evening IST), or any back/neck pain..."
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
 
                   <Button variant="primary" size="lg" type="submit" className="w-full justify-center">
                     <Send className="w-4 h-4 mr-2" />
-                    Send Inquiry Note
+                    Submit Inquiry (Claim 10% Off)
                   </Button>
                 </form>
               )}
@@ -846,11 +902,14 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Architectural Sanctuary Footer */}
+      {/* Architectural Indian Wellness Footer */}
       <Footer />
 
       {/* Global AI Wellness Concierge */}
       <WellnessConcierge />
+
+      {/* Global Floating WhatsApp Button (+91 91058 37321) */}
+      <WhatsAppButton phoneNumber="919105837321" />
     </div>
   );
 }
