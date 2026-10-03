@@ -7,11 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
 const NAV_LINKS = [
-  { name: "Programs", href: "/#programs" },
-  { name: "Why Xanso", href: "/#why-us" },
+  { name: "Ways to Train", href: "/#pathways" },
+  { name: "Health Solutions", href: "/#health-concerns" },
   { name: "Indian Trainers", href: "/#training" },
+  { name: "Why Xanso", href: "/#why-us" },
   { name: "Pricing & Plans", href: "/#pricing" },
-  { name: "Corporate", href: "/#corporate" },
   { name: "FAQs", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
 ];

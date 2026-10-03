@@ -5,11 +5,32 @@
 @layer base {
   body {
     @apply bg-background text-text-main font-sans antialiased;
-    background-color: #F9F8F6;
+    background-color: #FAF7F2;
     color: #2D2A26;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight text-text-main;
   }
+}
+
+/* Indian Aesthetics & Heritage Accents */
+.indian-kesari-glow {
+  background: radial-gradient(circle at center, rgba(217, 94, 57, 0.15) 0%, rgba(229, 169, 60, 0.08) 50%, transparent 75%);
+}
+
+.indian-border-gold {
+  border-color: rgba(229, 169, 60, 0.4);
+}
+
+.indian-badge-ayush {
+  background: #EBF7EE;
+  color: #1B5E3C;
+  border: 1px solid #B8E4C5;
+}
+
+.indian-badge-saffron {
+  background: #FFF3EB;
+  color: #C2512E;
+  border: 1px solid #FCD4BE;
 }

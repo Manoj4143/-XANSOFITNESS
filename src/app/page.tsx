@@ -33,6 +33,8 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
 import { FeaturedPrograms } from "@/components/features/FeaturedPrograms";
+import { ThreeWaysToTrain } from "@/components/features/ThreeWaysToTrain";
+import { HealthBenefitsGrid } from "@/components/features/HealthBenefitsGrid";
 import { WhyChooseXanso } from "@/components/features/WhyChooseXanso";
 import { TrainerProfiles } from "@/components/features/TrainerProfiles";
 import { PricingArchitecture } from "@/components/features/PricingArchitecture";
@@ -353,11 +355,25 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            3. PRACTICE CATEGORIES GRID (Exploration Grid)
+            3. THREE WAYS TO TRAIN (From Xanso.in Architecture)
+        ======================================================== */}
+        <section id="pathways">
+          <ThreeWaysToTrain />
+        </section>
+
+        {/* ========================================================
+            4. HEALTH CONCERNS WE ADDRESS (PCOS, Spine, Stress, Fat Loss)
+        ======================================================== */}
+        <section id="health-concerns">
+          <HealthBenefitsGrid />
+        </section>
+
+        {/* ========================================================
+            5. PRACTICE CATEGORIES GRID (Exploration Grid)
         ======================================================== */}
         <section
           id="programs"
-          className="pt-24 md:pt-32 pb-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
+          className="pt-16 md:pt-24 pb-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto"
         >
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
