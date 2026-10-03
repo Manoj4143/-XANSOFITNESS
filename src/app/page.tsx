@@ -33,9 +33,11 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
 import { FeaturedPrograms } from "@/components/features/FeaturedPrograms";
+import { WhyChooseXanso } from "@/components/features/WhyChooseXanso";
 import { TrainerProfiles } from "@/components/features/TrainerProfiles";
 import { PricingArchitecture } from "@/components/features/PricingArchitecture";
 import { SuccessStories } from "@/components/features/SuccessStories";
+import { XansoFAQ } from "@/components/features/XansoFAQ";
 import { WellnessConcierge } from "@/components/ai/WellnessConcierge";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { playSanctuaryChime } from "@/lib/sound";
@@ -447,7 +449,14 @@ export default function HomePage() {
         <FeaturedPrograms />
 
         {/* ========================================================
-            5. TRAINER PROFILES (The Sanctuary Collective)
+            5. THE XANSO DIFFERENCE (Live Zoom, Female Batches, Diet)
+        ======================================================== */}
+        <section id="why-us">
+          <WhyChooseXanso />
+        </section>
+
+        {/* ========================================================
+            6. TRAINER PROFILES (Ayush & Rishikesh Certified Masters)
         ======================================================== */}
         <section id="training">
           <TrainerProfiles />
@@ -751,7 +760,12 @@ export default function HomePage() {
         <SuccessStories />
 
         {/* ========================================================
-            10. CONTACT SECTION (Prominent WhatsApp)
+            10. FREQUENTLY ASKED QUESTIONS (From Xanso.in)
+        ======================================================== */}
+        <XansoFAQ />
+
+        {/* ========================================================
+            11. CONTACT SECTION (Prominent WhatsApp)
         ======================================================== */}
         <section id="contact" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
